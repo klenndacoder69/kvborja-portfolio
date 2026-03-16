@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
 
   type Phase = 'init' | 'prompt' | 'password' | 'auth' | 'exiting' | 'exiting2';
 
@@ -156,7 +156,7 @@
     phase = 'exiting2';
     exiting = true;
     await sleep(800);
-    goto(`${base}/home`);
+    goto(resolve('/home'));
   }
 
   // Hint message based on current state
@@ -221,7 +221,7 @@
     <div class="hint">{hint}</div>
   </div>
 
-  <a href="{base}/home" class="skip">skip intro →</a>
+  <a href={resolve('/home')} class="skip">skip intro →</a>
 </div>
 
 <style>

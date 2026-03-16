@@ -1,13 +1,13 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { page } from "$app/state";
-  import { base } from "$app/paths";
+  import { resolve } from "$app/paths";
 
   const nav = [
-    { href: `${base}/home`,     icon: 'tabler:home', label: 'Home' },
-    { href: `${base}/projects`, icon: 'tabler:code', label: 'Projects' },
-    { href: `${base}/about`,    icon: 'tabler:user', label: 'About' },
-    { href: `${base}/contact`,  icon: 'tabler:mail', label: 'Contact' },
+    { href: resolve('/home'),     icon: 'tabler:home', label: 'Home' },
+    { href: resolve('/projects'), icon: 'tabler:code', label: 'Projects' },
+    { href: resolve('/about'),    icon: 'tabler:user', label: 'About' },
+    { href: resolve('/contact'),  icon: 'tabler:mail', label: 'Contact' },
   ];
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { base } from "$app/paths";
+  import { resolve } from "$app/paths";
 </script>
 
 <svelte:head>
@@ -17,15 +17,15 @@
   </div>
 
   <div class="card-actions" style="flex-wrap: wrap; gap: 0.6em; margin-top: 0.5em;">
-    <a href="{base}/projects" class="button">
+    <a href={resolve('/projects')} class="button">
       <Icon icon="tabler:code" width="16" height="16" />
       Projects
     </a>
-    <a href="{base}/about" class="button">
+    <a href={resolve('/about')} class="button">
       <Icon icon="tabler:user" width="16" height="16" />
       About
     </a>
-    <a href="{base}/contact" class="button">
+    <a href={resolve('/contact')} class="button">
       <Icon icon="tabler:mail" width="16" height="16" />
       Contact
     </a>
