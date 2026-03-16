@@ -8,7 +8,7 @@
       tags: ['SvelteKit', 'TypeScript', 'CSS'],
       github: 'https://github.com/klenndacoder69/kvborja-portfolio',
       demo: null,
-    }
+    },
     {
       title: 'Project Two',
       description: 'NA',
