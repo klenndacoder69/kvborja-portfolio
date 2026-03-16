@@ -4,29 +4,29 @@
   const projects = [
     {
       title: 'Portfolio Website',
-      description: 'This very site — built with SvelteKit, a terminal splash screen, and deployed on GitHub Pages.',
+      description: 'Built using SvelteKit and TypeScript, this portfolio website showcases my projects, skills, and contact information.',
       tags: ['SvelteKit', 'TypeScript', 'CSS'],
+      github: 'https://github.com/klenndacoder69/kvborja-portfolio',
+      demo: null,
+    }
+    {
+      title: 'Project Two',
+      description: 'NA',
+      tags: ['NA'],
       github: 'https://github.com/',
       demo: null,
     },
     {
-      title: 'Project Two',
-      description: 'A short description of what this project does and what problem it solves.',
-      tags: ['Python', 'Flask', 'SQL'],
-      github: 'https://github.com/',
-      demo: 'https://example.com',
-    },
-    {
       title: 'Project Three',
-      description: 'Another cool CS project — describe what makes it interesting or challenging.',
-      tags: ['Java', 'OOP', 'CLI'],
+      description: 'NA',
+      tags: ['NA'],
       github: 'https://github.com/',
       demo: null,
     },
     {
       title: 'Project Four',
-      description: 'Replace this with a real project once you add your own work here.',
-      tags: ['JavaScript', 'HTML', 'CSS'],
+      description: 'NA',
+      tags: ['NA'],
       github: 'https://github.com/',
       demo: null,
     },
