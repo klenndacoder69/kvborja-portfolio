@@ -12,7 +12,7 @@
   <p class="lead">
     I'm Klenn Jakek Borja — a CS student who got hooked on programming by wondering
     how things work under the hood. That curiosity has never really left.
-    Outside of code I enjoy gaming, open-source tinkering, and Linux rabbit holes.
+    Outside of code I enjoy gaming, open-source tinkering, network homelabbing, and Linux rabbit holes.
   </p>
 
   <div class="section-gap">

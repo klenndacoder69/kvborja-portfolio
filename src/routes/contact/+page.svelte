@@ -2,9 +2,9 @@
   import Icon from "@iconify/svelte";
 
   const links = [
-    { icon: 'tabler:brand-github',   label: 'GitHub',   url: 'https://github.com/',    hint: 'github.com/yourhandle' },
-    { icon: 'tabler:brand-linkedin', label: 'LinkedIn', url: 'https://linkedin.com/',  hint: 'linkedin.com/in/yourname' },
-    { icon: 'tabler:mail',           label: 'Email',    url: 'mailto:you@example.com', hint: 'you@example.com' },
+    { icon: 'tabler:brand-github',   label: 'GitHub',   url: 'https://github.com/klenndacoder69',    hint: 'github.com/klenndacoder69' },
+    { icon: 'tabler:brand-linkedin', label: 'LinkedIn', url: 'https://linkedin.com/klenn-borja',  hint: 'linkedin.com/in/klenn-borja' },
+    { icon: 'tabler:mail',           label: 'Email',    url: 'mailto:borja.klenn@gmail.com', hint: 'borja.klenn@gmail.com' },
   ];
 </script>
 
@@ -16,7 +16,7 @@
   <div>
     <h1>Contact</h1>
     <p class="lead" style="margin-top:0.75em;">
-      Open to internships, collaborations, or just chatting about tech.
+      Open to internships, jobs, collaborations, or just chatting about tech.
     </p>
   </div>
 

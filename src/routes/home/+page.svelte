@@ -34,7 +34,7 @@
   <div class="section-gap">
     <h2>Stack</h2>
     <div class="tags stagger" style="margin-top: 0.75em;">
-      {#each ['SvelteKit', 'TypeScript', 'JavaScript', 'Python', 'Java', 'C', 'HTML/CSS', 'Git', 'Linux', 'Node.js', 'SQL'] as skill}
+      {#each ['SvelteKit', 'TypeScript', 'JavaScript', 'Python', 'Java', 'C', 'C++', 'HTML/CSS', 'Git', 'Linux', 'Node.js', 'SQL'] as skill}
         <span class="tag">{skill}</span>
       {/each}
     </div>

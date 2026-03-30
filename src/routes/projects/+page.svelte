@@ -42,7 +42,7 @@
     <h1>Projects</h1>
     <p class="lead" style="margin-top:0.75em;">
       Things I've built. More on
-      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>.
+      <a href="https://github.com/klenndacoder69" target="_blank" rel="noopener">GitHub</a>.
     </p>
   </div>
 
