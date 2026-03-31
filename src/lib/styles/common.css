@@ -19,6 +19,10 @@
   --hero-background: var(--bg-canvas);
   --hero-text-color: var(--text-main);
 
+  --button-color: #2f49ff;
+  --button-color-hover: #2238cc;
+  --button-fill: #2f49ff33;
+
   --font-body: "Inter", "Helvetica", "Roboto", sans-serif;
   --layout-max-width: 62.5rem;
 }
@@ -38,7 +42,7 @@
 
     --text-main: var(--palette-green);
     --text-link: var(--palette-blue-light);
-    --text-link-hover: var(--palette-red-dark);
+    --text-link-hover: var(--palette-blue);
 
     --hero-background: var(--bg-canvas);
     --hero-text-color: var(--text-main);
@@ -158,9 +162,9 @@ span.subtitle {
   display: inline-flex;
   font-family: inherit;
   font-size: inherit;
-  border: 2px solid var(--text-link);
-  color: var(--text-link);
-  background: linear-gradient(to right, var(--bg-surface-hover) 50%, transparent 50%);
+  border: 2px solid var(--button-color);
+  color: var(--button-color);
+  background: linear-gradient(to right, var(--button-fill) 50%, transparent 50%);
   background-size: 200% 100%;
   background-position: 100% 0;
   text-decoration: none;
@@ -170,11 +174,12 @@ span.subtitle {
   justify-content: center;
   gap: 5px;
   position: relative;
-  transition: background-position 300ms ease, color 200ms ease, box-shadow 200ms ease-in-out;
+  transition: background-position 300ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease-in-out;
 }
 
 .button:hover, .button:focus {
-  --text-link: var(--text-link-hover);
+  color: var(--button-color-hover);
+  border-color: var(--button-color-hover);
   background-position: 0 0;
 }
 
