@@ -29,11 +29,9 @@
 {#if isTerminal}
 	{@render children()}
 {:else}
-	<div class="center-v">
-		<Header />
-		<main style="min-height: 70vh;">
-			{@render children()}
-		</main>
-		<Footer />
-	</div>
+	<Header />
+	<main style="min-height: 70vh;">
+		{@render children()}
+	</main>
+	<Footer />
 {/if}

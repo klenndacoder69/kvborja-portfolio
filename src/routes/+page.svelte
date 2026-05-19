@@ -225,7 +225,7 @@
 </div>
 
 <style>
-  :global(body) { margin: 0; overflow: hidden; }
+  :global(body):has(.screen) { overflow: hidden; }
 
   .screen {
     position: fixed;
