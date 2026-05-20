@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
+  import { introStore } from '$lib/introStore';
 
   type Phase = 'init' | 'prompt' | 'password' | 'auth' | 'exiting' | 'exiting2';
 
@@ -156,6 +157,7 @@
     phase = 'exiting2';
     exiting = true;
     await sleep(800);
+    introStore.markDone();
     goto(resolve('/home'));
   }
 
@@ -194,7 +196,7 @@
 
   <div class="name-block" class:visible={titleVisible}>
     <div class="name">Klenn Jakek Borja</div>
-    <div class="tagline">Aspiring Cybersecurity Engineer</div>
+    <div class="tagline">Software Developer</div>
   </div>
 
   <div class="sep" class:visible={termVisible}></div>
@@ -221,7 +223,13 @@
     <div class="hint">{hint}</div>
   </div>
 
-  <a href={resolve('/home')} class="skip">skip intro →</a>
+  <button
+    class="skip"
+    onclick={() => { introStore.markDone(); goto(resolve('/home')); }}
+    aria-label="Skip the terminal intro and go to portfolio"
+  >
+    skip intro →
+  </button>
 </div>
 
 <style>
@@ -346,14 +354,32 @@
   /* ── skip ── */
   .skip {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: 1.75rem;
     right: 1.75rem;
-    font-size: 0.72rem;
-    color: #33ff3340;
-    text-decoration: none;
-    letter-spacing: 0.12em;
-    transition: color 0.2s;
     z-index: 20;
+    /* reset button defaults */
+    font-family: 'Courier New', 'Lucida Console', monospace;
+    cursor: pointer;
+    /* pill styling */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.5em 1.1em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #0a0d0a;
+    background: #33ff33;
+    border: none;
+    border-radius: 9999em;
+    box-shadow: 0 0 18px rgba(51,255,51,0.45), 0 0 6px rgba(51,255,51,0.3);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   }
-  .skip:hover { color: #33ff33; }
+  .skip:hover {
+    background: #5fff5f;
+    box-shadow: 0 0 28px rgba(51,255,51,0.7), 0 0 10px rgba(51,255,51,0.5);
+    transform: translateY(-2px);
+  }
+  .skip:active { transform: translateY(0); }
 </style>
