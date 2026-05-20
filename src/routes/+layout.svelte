@@ -11,9 +11,11 @@
 
 	let { children } = $props();
 
-	let isTerminal = $derived(page.url.pathname === '/');
+	// page.route.id is always '/' for the root page regardless of base path.
+	// This works correctly both locally and on GitHub Pages (/kvborja-portfolio/).
+	let isTerminal = $derived(page.route.id === '/');
 
-	// Reactive auth state — re-evaluated whenever the store changes or navigation happens
+	// Reactive auth state — re-evaluated on mount and every navigation
 	let isAuthed = $state(false);
 
 	onMount(() => {
@@ -25,7 +27,7 @@
 		isAuthed = introStore.read();
 
 		// Skip view transition when leaving the terminal
-		if (navigation.from?.url.pathname === '/') return;
+		if (navigation.from?.route.id === '/') return;
 		if (!document.startViewTransition) return;
 		return new Promise((resolve) => {
 			document.startViewTransition(async () => {
