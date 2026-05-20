@@ -335,7 +335,7 @@
     min-height: 1.4em;
     letter-spacing: 0.04em;
   }
-  kbd {
+  :global(kbd) {
     background: rgba(51,255,51,0.1);
     border: 1px solid rgba(51,255,51,0.3);
     border-radius: 3px;

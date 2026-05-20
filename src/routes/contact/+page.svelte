@@ -66,7 +66,11 @@
     {/each}
   </div>
 
-  
+  <div class="avail-note">
+    <span class="avail-dot"></span>
+    Available for internship — graduating July 2026
+  </div>
+
 </div>
 
 <style>

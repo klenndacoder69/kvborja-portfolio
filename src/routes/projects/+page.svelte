@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import { base } from '$app/paths';
 
   type Project = {
     title: string;
@@ -116,8 +117,8 @@
       github: null,
       demo: null,
       images: [
-        'screenshots/ysync/ysync_0.png',
-        'screenshots/ysync/ysync_1.png',
+        '/screenshots/ysync/ysync_0.png',
+        '/screenshots/ysync/ysync_1.png',
       ],
     },
   ];
@@ -198,15 +199,19 @@
         <!-- Screenshot / placeholder -->
         <div class="proj-thumb">
           {#if project.images.length > 0}
-            <img src={project.images[cardImgIdx[i]]} alt="{project.title} screenshot {cardImgIdx[i] + 1}" />
+            <img src="{base}{project.images[cardImgIdx[i]]}" alt="{project.title} screenshot {cardImgIdx[i] + 1}" />
             <!-- Nav arrows (only when multiple images) -->
             {#if project.images.length > 1}
-              <button class="thumb-nav thumb-prev" onclick={(e) => cardPrev(e, i)} aria-label="Previous image">
+              <!-- svelte-ignore a11y_no_static_element_interactions -->
+              <!-- svelte-ignore a11y_click_events_have_key_events -->
+              <div class="thumb-nav thumb-prev" onclick={(e) => cardPrev(e, i)} role="button" tabindex="-1" aria-label="Previous image">
                 <Icon icon="tabler:chevron-left" width="14" height="14" />
-              </button>
-              <button class="thumb-nav thumb-next" onclick={(e) => cardNext(e, i)} aria-label="Next image">
+              </div>
+              <!-- svelte-ignore a11y_no_static_element_interactions -->
+              <!-- svelte-ignore a11y_click_events_have_key_events -->
+              <div class="thumb-nav thumb-next" onclick={(e) => cardNext(e, i)} role="button" tabindex="-1" aria-label="Next image">
                 <Icon icon="tabler:chevron-right" width="14" height="14" />
-              </button>
+              </div>
               <!-- Dots -->
               <div class="thumb-dots">
                 {#each project.images as _, di}
@@ -263,7 +268,7 @@
   {@const meta = categoryMeta[selected.category]}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="modal-backdrop" onclick={close} role="dialog" aria-modal="true" aria-label="{selected.title} details">
+  <div class="modal-backdrop" onclick={close} role="dialog" aria-modal="true" tabindex="-1" aria-label="{selected.title} details">
     <div class="modal" onclick={(e) => e.stopPropagation()} style="--accent: {meta.color};">
 
       <!-- Modal header -->
@@ -286,7 +291,7 @@
       <!-- Screenshot carousel -->
       <div class="modal-image">
         {#if selected.images.length > 0}
-          <img src={selected.images[modalImgIdx]} alt="{selected.title} screenshot {modalImgIdx + 1}" />
+          <img src="{base}{selected.images[modalImgIdx]}" alt="{selected.title} screenshot {modalImgIdx + 1}" />
           {#if selected.images.length > 1}
             <button class="modal-nav modal-prev" onclick={modalPrev} aria-label="Previous screenshot">
               <Icon icon="tabler:chevron-left" width="18" height="18" />
