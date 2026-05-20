@@ -31,7 +31,7 @@
       github: null,
       demo: null,
       images: [
-        'screenshots/homelab/homelab_0.jpeg',
+        '/screenshots/homelab/homelab_0.jpeg',
       ],
     },
     {
