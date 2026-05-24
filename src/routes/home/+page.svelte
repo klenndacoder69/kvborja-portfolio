@@ -9,7 +9,7 @@
   ];
 
   const currently = [
-    { key: 'working_on', label: 'working on', value: 'Linux SIEM Homelab · NoEsc HIDS' },
+    { key: 'working_on', label: 'working on', value: 'Linux SIEM Homelab' },
     { key: 'studying',   label: 'studying',   value: 'ISC2 CC · Google Cybersecurity Cert' },
     { key: 'open_to',    label: 'open to',    value: 'Internships · Full-time (July 2026)' },
     { key: 'based_in',   label: 'based in',   value: 'Philippines · Remote-friendly' },
