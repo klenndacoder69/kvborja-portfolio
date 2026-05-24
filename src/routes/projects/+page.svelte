@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { base } from '$app/paths';
+  import { base } from "$app/paths";
 
   type Project = {
     title: string;
@@ -9,7 +9,7 @@
     description: string;
     bullets: string[];
     tags: string[];
-    category: 'cyber' | 'softdev' | 'both';
+    category: "cyber" | "softdev" | "both";
     github: string | null;
     demo: string | null;
     demoNote?: string;
@@ -19,114 +19,182 @@
 
   const projects: Project[] = [
     {
-      title: 'Linux Infrastructure & SIEM Homelab',
-      date: 'March 2026 – Present',
-      description: 'A remote-accessible Ubuntu Linux homelab built for hands-on defensive security, containerized services, and real-time threat detection.',
+      title: "Pulse",
+      date: "March 2026 – Present",
+      description:
+        "A high-throughput, polyglot telemetry ingestion pipeline (C++/Python) deployed as containerized microservices on a production AWS EC2 instance with a hardened CI/CD workflow.",
       bullets: [
-        'Architected a remote-accessible Ubuntu Linux environment utilizing Docker for containerized hosting, configuring a BIND9 DNS server and Nginx reverse proxy for secure internal routing.',
-        'Hardened infrastructure access via Tailscale (WireGuard VPN) for remote SSH management, and deployed a Wazuh SIEM container to configure custom detection rules and analyze host telemetry.',
+        "Architected a high-throughput, polyglot telemetry ingestion pipeline (C++, Python) and deployed the containerized microservices architecture to a production AWS EC2 instance.",
+        "Engineered an environment-agnostic CI/CD pipeline using GitHub Actions, decoupling C++ compilation from the runtime host by publishing multi-stage Docker builds to GHCR, reducing deployment time by over 90%.",
+        "Optimized constrained cloud hardware to resolve Out-Of-Memory (OOM) compiler crashes by tuning C++ build flags, expanding live Linux NVMe partitions, and manually provisioning virtual swap space.",
+        "Hardened deployment security by integrating Trivy vulnerability scanning into the CI workflow and implementing strict secret management to protect database credentials and internal Docker DNS routing.",
       ],
-      tags: ['Ubuntu Server', 'Docker', 'Nginx', 'BIND9', 'Tailscale', 'Wazuh', 'SIEM'],
-      category: 'cyber',
-      github: null,
+      tags: [
+        "C++",
+        "Python",
+        "PostgreSQL",
+        "Redis",
+        "Docker",
+        "AWS EC2",
+        "GitHub Actions",
+        "Grafana",
+        "Trivy",
+      ],
+      category: "both",
+      github: "https://github.com/klenndacoder69/Pulse",
       demo: null,
-      images: [
-        '/screenshots/homelab/homelab_0.jpeg',
-      ],
+      images: ["/screenshots/pulse/pulse_0.png"],
     },
     {
-      title: 'NoEsc',
-      date: 'Feb 2026 – May 2026',
-      description: 'A hybrid C++/Python Host Intrusion Detection System analyzing 90,000+ live kernel events in real-time with a 100% True Positive Rate.',
+      title: "Linux Infrastructure & SIEM Homelab",
+      date: "March 2026 – Present",
+      description:
+        "A remote-accessible Ubuntu Linux homelab built for hands-on defensive security, containerized services, and real-time threat detection.",
       bullets: [
-        'Engineered a high-performance hybrid C++/Python daemon utilizing Unix Domain Sockets and Linux auditd to process 90,000+ live kernel events in real-time.',
-        'Trained an SVM anomaly detection model (F1-score: 0.998) and engineered a custom process-aware whitelist that slashed false positive alert noise by 74%.',
-        'Implemented rigorous system-level programming techniques in C++ to minimize CPU overhead while maintaining a 100% True Positive Rate for event processing.',
+        "Architected a remote-accessible Ubuntu Linux environment utilizing Docker for containerized hosting, configuring a BIND9 DNS server and Nginx reverse proxy for secure internal routing.",
+        "Hardened infrastructure access via Tailscale (WireGuard VPN) for remote SSH management, and deployed a Wazuh SIEM container to configure custom detection rules and analyze host telemetry.",
       ],
-      tags: ['C++', 'Python', 'Scikit-learn', 'Linux auditd', 'Unix Domain Sockets', 'Bash', 'SVM'],
-      category: 'both',
-      github: 'https://github.com/klenndacoder69/NoEsc',
+      tags: [
+        "Ubuntu Server",
+        "Docker",
+        "Nginx",
+        "BIND9",
+        "Tailscale",
+        "Wazuh",
+        "SIEM",
+      ],
+      category: "cyber",
+      github: null,
+      demo: null,
+      images: ["/screenshots/homelab/homelab_0.jpeg"],
+    },
+    {
+      title: "NoEsc",
+      date: "Feb 2026 – May 2026",
+      description:
+        "A hybrid C++/Python Host Intrusion Detection System analyzing 90,000+ live kernel events in real-time with a 100% True Positive Rate.",
+      bullets: [
+        "Engineered a high-performance hybrid C++/Python daemon utilizing Unix Domain Sockets and Linux auditd to process 90,000+ live kernel events in real-time.",
+        "Trained an SVM anomaly detection model (F1-score: 0.998) and engineered a custom process-aware whitelist that slashed false positive alert noise by 74%.",
+        "Implemented rigorous system-level programming techniques in C++ to minimize CPU overhead while maintaining a 100% True Positive Rate for event processing.",
+      ],
+      tags: [
+        "C++",
+        "Python",
+        "Scikit-learn",
+        "Linux auditd",
+        "Unix Domain Sockets",
+        "Bash",
+        "SVM",
+      ],
+      category: "both",
+      github: "https://github.com/klenndacoder69/NoEsc",
       demo: null,
       images: [],
     },
     {
-      title: 'Predictive Analysis of Economic Vulnerability',
-      date: 'Nov 2024 – Dec 2024',
-      description: 'An end-to-end ML pipeline scraping 3,500+ news articles to forecast 30-day economic vulnerability trends, with a published research paper.',
+      title: "Predictive Analysis of Economic Vulnerability",
+      date: "Nov 2024 – Dec 2024",
+      description:
+        "An end-to-end ML pipeline scraping 3,500+ news articles to forecast 30-day economic vulnerability trends, with a published research paper.",
       bullets: [
-        'Engineered an end-to-end ML pipeline, scraping a 2-year dataset of 3,500+ news articles and achieving 97.3% sector classification accuracy using Multinomial Naive Bayes.',
-        'Fine-tuned a BERT transformer (73.8% sentiment accuracy) and architected a Bidirectional LSTM neural network to forecast 30-day economic vulnerability trends.',
-        'Co-authored and published the research methodology and predictive time-series findings on SSRN.',
+        "Engineered an end-to-end ML pipeline, scraping a 2-year dataset of 3,500+ news articles and achieving 97.3% sector classification accuracy using Multinomial Naive Bayes.",
+        "Fine-tuned a BERT transformer (73.8% sentiment accuracy) and architected a Bidirectional LSTM neural network to forecast 30-day economic vulnerability trends.",
+        "Co-authored and published the research methodology and predictive time-series findings on SSRN.",
       ],
-      tags: ['Python', 'Scikit-learn', 'TensorFlow', 'BERT', 'Pandas', 'BeautifulSoup', 'LSTM'],
-      category: 'softdev',
-      github: 'https://github.com/klenndacoder69/PAEVUND',
+      tags: [
+        "Python",
+        "Scikit-learn",
+        "TensorFlow",
+        "BERT",
+        "Pandas",
+        "BeautifulSoup",
+        "LSTM",
+      ],
+      category: "softdev",
+      github: "https://github.com/klenndacoder69/PAEVUND",
       demo: null,
-      publication: 'https://dx.doi.org/10.2139/ssrn.5063087',
+      publication: "https://dx.doi.org/10.2139/ssrn.5063087",
+      images: ["/screenshots/paevund/paevund_0.png"],
+    },
+    {
+      title: "AEGIS",
+      date: "Feb 2025 – May 2025",
+      role: "Project Manager & Backend Lead",
+      description:
+        "A comprehensive alumni portal built by a 20-member team with secure RESTful APIs, Role-Based Access Control, and full sprint management.",
+      bullets: [
+        "Spearheaded a 20-member engineering team to build a comprehensive alumni portal, managing project architecture, database design, and sprint workflows.",
+        "Engineered secure RESTful APIs with Role-Based Access Control (RBAC) to handle complex backend workflows, including job applications and analytics reporting.",
+      ],
+      tags: ["Next.js", "MongoDB", "Vercel", "RESTful API", "RBAC"],
+      category: "softdev",
+      github: "https://github.com/CMSC-128-A1-2L/AEGIS",
+      demo: "https://cmsc-128-a12l.vercel.app/",
+      demoNote:
+        "DB no longer active. Certain functionalities wont work as expected.",
       images: [
-        '/screenshots/paevund/paevund_0.png'
+        "/screenshots/aegis/aegis (1).jpg",
+        "/screenshots/aegis/aegis (2).jpg",
+        "/screenshots/aegis/aegis (3).jpg",
+        "/screenshots/aegis/aegis (4).jpg",
+        "/screenshots/aegis/aegis (5).jpg",
+        "/screenshots/aegis/aegis (6).jpg",
+        "/screenshots/aegis/aegis (7).jpg",
+        "/screenshots/aegis/aegis (8).jpg",
+        "/screenshots/aegis/aegis (9).jpg",
+        "/screenshots/aegis/aegis (10).jpg",
+        "/screenshots/aegis/aegis (11).jpg",
+        "/screenshots/aegis/aegis (12).jpg",
+        "/screenshots/aegis/aegis (13).jpg",
+        "/screenshots/aegis/aegis (14).jpg",
+        "/screenshots/aegis/aegis (15).jpg",
+        "/screenshots/aegis/aegis (16).jpg",
+        "/screenshots/aegis/aegis (17).jpg",
+        "/screenshots/aegis/aegis (18).jpg",
+        "/screenshots/aegis/aegis (19).jpg",
       ],
     },
     {
-      title: 'AEGIS',
-      date: 'Feb 2025 – May 2025',
-      role: 'Project Manager & Backend Lead',
-      description: 'A comprehensive alumni portal built by a 20-member team with secure RESTful APIs, Role-Based Access Control, and full sprint management.',
+      title: "YSYNC",
+      date: "Nov 2024 – Jan 2025",
+      role: "Project Manager & Backend Lead",
+      description:
+        "A university org portal with real-time WebSocket chat, RBAC-secured APIs, and a custom recommendation algorithm for 80+ trainees.",
       bullets: [
-        'Spearheaded a 20-member engineering team to build a comprehensive alumni portal, managing project architecture, database design, and sprint workflows.',
-        'Engineered secure RESTful APIs with Role-Based Access Control (RBAC) to handle complex backend workflows, including job applications and analytics reporting.',
+        "Directed backend development and schema design for a university organization portal, successfully streamlining the trainee application lifecycle.",
+        "Built a secure backend featuring real-time WebSocket chat pipelines (Socket.io), RBAC-secured REST APIs, and a custom recommendation algorithm.",
       ],
-      tags: ['Next.js', 'MongoDB', 'Vercel', 'RESTful API', 'RBAC'],
-      category: 'softdev',
-      github: 'https://github.com/CMSC-128-A1-2L/AEGIS',
-      demo: 'https://cmsc-128-a12l.vercel.app/',
-      demoNote: 'DB no longer active. Certain functionalities wont work as expected.',
-      images: [
-        '/screenshots/aegis/aegis (1).jpg',
-        '/screenshots/aegis/aegis (2).jpg',
-        '/screenshots/aegis/aegis (3).jpg',
-        '/screenshots/aegis/aegis (4).jpg',
-        '/screenshots/aegis/aegis (5).jpg',
-        '/screenshots/aegis/aegis (6).jpg',
-        '/screenshots/aegis/aegis (7).jpg',
-        '/screenshots/aegis/aegis (8).jpg',
-        '/screenshots/aegis/aegis (9).jpg',
-        '/screenshots/aegis/aegis (10).jpg',
-        '/screenshots/aegis/aegis (11).jpg',
-        '/screenshots/aegis/aegis (12).jpg',
-        '/screenshots/aegis/aegis (13).jpg',
-        '/screenshots/aegis/aegis (14).jpg',
-        '/screenshots/aegis/aegis (15).jpg',
-        '/screenshots/aegis/aegis (16).jpg',
-        '/screenshots/aegis/aegis (17).jpg',
-        '/screenshots/aegis/aegis (18).jpg',
-        '/screenshots/aegis/aegis (19).jpg',
+      tags: [
+        "Supabase",
+        "Express.js",
+        "React",
+        "Node.js",
+        "Socket.io",
+        "WebSocket",
       ],
-    },
-    {
-      title: 'YSYNC',
-      date: 'Nov 2024 – Jan 2025',
-      role: 'Project Manager & Backend Lead',
-      description: 'A university org portal with real-time WebSocket chat, RBAC-secured APIs, and a custom recommendation algorithm for 80+ trainees.',
-      bullets: [
-        'Directed backend development and schema design for a university organization portal, successfully streamlining the trainee application lifecycle.',
-        'Built a secure backend featuring real-time WebSocket chat pipelines (Socket.io), RBAC-secured REST APIs, and a custom recommendation algorithm.',
-      ],
-      tags: ['Supabase', 'Express.js', 'React', 'Node.js', 'Socket.io', 'WebSocket'],
-      category: 'softdev',
+      category: "softdev",
       github: null,
       demo: null,
       images: [
-        '/screenshots/ysync/ysync_0.png',
-        '/screenshots/ysync/ysync_1.png',
+        "/screenshots/ysync/ysync_0.png",
+        "/screenshots/ysync/ysync_1.png",
       ],
     },
   ];
 
   const categoryMeta = {
-    cyber:   { label: 'Cybersecurity', icon: 'tabler:shield-lock',     color: '#00c864' },
-    softdev: { label: 'Software Dev',  icon: 'tabler:code',             color: '#6496ff' },
-    both:    { label: 'Cyber & Dev',   icon: 'tabler:layers-intersect', color: '#c864ff' },
+    cyber: {
+      label: "Cybersecurity",
+      icon: "tabler:shield-lock",
+      color: "#00c864",
+    },
+    softdev: { label: "Software Dev", icon: "tabler:code", color: "#6496ff" },
+    both: {
+      label: "Cyber & Dev",
+      icon: "tabler:layers-intersect",
+      color: "#c864ff",
+    },
   };
 
   let selected = $state<Project | null>(null);
@@ -151,7 +219,9 @@
     selected = p;
     modalImgIdx = 0;
   }
-  function close() { selected = null; }
+  function close() {
+    selected = null;
+  }
 
   function modalNext() {
     if (!selected) return;
@@ -160,13 +230,14 @@
 
   function modalPrev() {
     if (!selected) return;
-    modalImgIdx = (modalImgIdx - 1 + selected.images.length) % selected.images.length;
+    modalImgIdx =
+      (modalImgIdx - 1 + selected.images.length) % selected.images.length;
   }
 
   function handleBackdropKey(e: KeyboardEvent) {
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowRight') modalNext();
-    if (e.key === 'ArrowLeft') modalPrev();
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowRight") modalNext();
+    if (e.key === "ArrowLeft") modalPrev();
   }
 </script>
 
@@ -181,7 +252,9 @@
     <h1>Projects</h1>
     <p class="lead" style="margin-top:0.75em;">
       Things I've built. Click any card for more details. More on
-      <a href="https://github.com/klenndacoder69" target="_blank" rel="noopener">GitHub</a>.
+      <a href="https://github.com/klenndacoder69" target="_blank" rel="noopener"
+        >GitHub</a
+      >.
     </p>
   </div>
 
@@ -199,23 +272,39 @@
         <!-- Screenshot / placeholder -->
         <div class="proj-thumb">
           {#if project.images.length > 0}
-            <img src="{base}{project.images[cardImgIdx[i]]}" alt="{project.title} screenshot {cardImgIdx[i] + 1}" />
+            <img
+              src="{base}{project.images[cardImgIdx[i]]}"
+              alt="{project.title} screenshot {cardImgIdx[i] + 1}"
+            />
             <!-- Nav arrows (only when multiple images) -->
             {#if project.images.length > 1}
               <!-- svelte-ignore a11y_no_static_element_interactions -->
               <!-- svelte-ignore a11y_click_events_have_key_events -->
-              <div class="thumb-nav thumb-prev" onclick={(e) => cardPrev(e, i)} role="button" tabindex="-1" aria-label="Previous image">
+              <div
+                class="thumb-nav thumb-prev"
+                onclick={(e) => cardPrev(e, i)}
+                role="button"
+                tabindex="-1"
+                aria-label="Previous image"
+              >
                 <Icon icon="tabler:chevron-left" width="14" height="14" />
               </div>
               <!-- svelte-ignore a11y_no_static_element_interactions -->
               <!-- svelte-ignore a11y_click_events_have_key_events -->
-              <div class="thumb-nav thumb-next" onclick={(e) => cardNext(e, i)} role="button" tabindex="-1" aria-label="Next image">
+              <div
+                class="thumb-nav thumb-next"
+                onclick={(e) => cardNext(e, i)}
+                role="button"
+                tabindex="-1"
+                aria-label="Next image"
+              >
                 <Icon icon="tabler:chevron-right" width="14" height="14" />
               </div>
               <!-- Dots -->
               <div class="thumb-dots">
                 {#each project.images as _, di}
-                  <span class="thumb-dot" class:active={di === cardImgIdx[i]}></span>
+                  <span class="thumb-dot" class:active={di === cardImgIdx[i]}
+                  ></span>
                 {/each}
               </div>
             {/if}
@@ -226,7 +315,10 @@
           {/if}
 
           <!-- Category pill overlaid on image -->
-          <span class="cat-pill" style="color:{meta.color}; background:{meta.color}18; border-color:{meta.color}30;">
+          <span
+            class="cat-pill"
+            style="color:{meta.color}; background:{meta.color}18; border-color:{meta.color}30;"
+          >
             <Icon icon={meta.icon} width="11" height="11" />
             {meta.label}
           </span>
@@ -268,13 +360,26 @@
   {@const meta = categoryMeta[selected.category]}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="modal-backdrop" onclick={close} role="dialog" aria-modal="true" tabindex="-1" aria-label="{selected.title} details">
-    <div class="modal" onclick={(e) => e.stopPropagation()} style="--accent: {meta.color};">
-
+  <div
+    class="modal-backdrop"
+    onclick={close}
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    aria-label="{selected.title} details"
+  >
+    <div
+      class="modal"
+      onclick={(e) => e.stopPropagation()}
+      style="--accent: {meta.color};"
+    >
       <!-- Modal header -->
       <div class="modal-header" style="border-color: {meta.color}30;">
         <div class="modal-header-left">
-          <span class="cat-pill" style="color:{meta.color}; background:{meta.color}18; border-color:{meta.color}30;">
+          <span
+            class="cat-pill"
+            style="color:{meta.color}; background:{meta.color}18; border-color:{meta.color}30;"
+          >
             <Icon icon={meta.icon} width="12" height="12" />
             {meta.label}
           </span>
@@ -291,12 +396,23 @@
       <!-- Screenshot carousel -->
       <div class="modal-image">
         {#if selected.images.length > 0}
-          <img src="{base}{selected.images[modalImgIdx]}" alt="{selected.title} screenshot {modalImgIdx + 1}" />
+          <img
+            src="{base}{selected.images[modalImgIdx]}"
+            alt="{selected.title} screenshot {modalImgIdx + 1}"
+          />
           {#if selected.images.length > 1}
-            <button class="modal-nav modal-prev" onclick={modalPrev} aria-label="Previous screenshot">
+            <button
+              class="modal-nav modal-prev"
+              onclick={modalPrev}
+              aria-label="Previous screenshot"
+            >
               <Icon icon="tabler:chevron-left" width="18" height="18" />
             </button>
-            <button class="modal-nav modal-next" onclick={modalNext} aria-label="Next screenshot">
+            <button
+              class="modal-nav modal-next"
+              onclick={modalNext}
+              aria-label="Next screenshot"
+            >
               <Icon icon="tabler:chevron-right" width="18" height="18" />
             </button>
             <div class="modal-dots">
@@ -312,7 +428,12 @@
           {/if}
         {:else}
           <div class="modal-img-empty">
-            <Icon icon={meta.icon} width="40" height="40" style="color:{meta.color}; opacity:0.3;" />
+            <Icon
+              icon={meta.icon}
+              width="40"
+              height="40"
+              style="color:{meta.color}; opacity:0.3;"
+            />
             <span>Screenshots coming soon</span>
           </div>
         {/if}
@@ -320,7 +441,9 @@
 
       <!-- Title + role -->
       <div class="modal-title-block">
-        <h2 class="modal-title" style="color: {meta.color};">{selected.title}</h2>
+        <h2 class="modal-title" style="color: {meta.color};">
+          {selected.title}
+        </h2>
         {#if selected.role}
           <div class="modal-role">
             <Icon icon="tabler:briefcase" width="14" height="14" />
@@ -350,7 +473,12 @@
       <!-- Actions -->
       <div class="modal-actions">
         {#if selected.github}
-          <a href={selected.github} target="_blank" rel="noopener" class="button">
+          <a
+            href={selected.github}
+            target="_blank"
+            rel="noopener"
+            class="button"
+          >
             <Icon icon="tabler:brand-github" width="16" height="16" />
             View Code
           </a>
@@ -362,7 +490,12 @@
         {/if}
         {#if selected.demo}
           <div class="demo-wrap">
-            <a href={selected.demo} target="_blank" rel="noopener" class="button">
+            <a
+              href={selected.demo}
+              target="_blank"
+              rel="noopener"
+              class="button"
+            >
               <Icon icon="tabler:external-link" width="16" height="16" />
               Live Demo
             </a>
@@ -375,7 +508,12 @@
           </div>
         {/if}
         {#if selected.publication}
-          <a href={selected.publication} target="_blank" rel="noopener" class="button">
+          <a
+            href={selected.publication}
+            target="_blank"
+            rel="noopener"
+            class="button"
+          >
             <Icon icon="tabler:file-text" width="16" height="16" />
             Read Paper
           </a>
@@ -396,11 +534,15 @@
   }
 
   @media screen and (max-width: 1024px) {
-    .card-grid { grid-template-columns: repeat(2, 1fr); }
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media screen and (max-width: 600px) {
-    .card-grid { grid-template-columns: 1fr; }
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ── Individual card ── */
@@ -492,8 +634,8 @@
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(4px);
     color: #fff;
     display: flex;
@@ -501,17 +643,27 @@
     justify-content: center;
     cursor: pointer;
     opacity: 0;
-    transition: opacity 150ms ease, background 150ms ease;
+    transition:
+      opacity 150ms ease,
+      background 150ms ease;
     z-index: 5;
     padding: 0;
   }
 
-  .proj-thumb:hover .thumb-nav { opacity: 1; }
+  .proj-thumb:hover .thumb-nav {
+    opacity: 1;
+  }
 
-  .thumb-prev { left: 0.4rem; }
-  .thumb-next { right: 0.4rem; }
+  .thumb-prev {
+    left: 0.4rem;
+  }
+  .thumb-next {
+    right: 0.4rem;
+  }
 
-  .thumb-nav:hover { background: rgba(0,0,0,0.8); }
+  .thumb-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
 
   .thumb-dots {
     position: absolute;
@@ -526,15 +678,16 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    transition: background 150ms ease, transform 150ms ease;
+    background: rgba(255, 255, 255, 0.4);
+    transition:
+      background 150ms ease,
+      transform 150ms ease;
   }
 
   .thumb-dot.active {
     background: #fff;
     transform: scale(1.3);
   }
-
 
   /* ── Card body ── */
   .proj-body {
@@ -607,7 +760,9 @@
     opacity: 0.7;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: opacity 200ms ease, gap 200ms ease;
+    transition:
+      opacity 200ms ease,
+      gap 200ms ease;
   }
 
   .proj-card:hover .proj-cta {
@@ -649,8 +804,12 @@
   }
 
   @keyframes backdrop-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   .modal {
@@ -666,7 +825,7 @@
     flex-direction: column;
     gap: 0;
     animation: modal-in 280ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    box-shadow: 0 24px 64px -12px color-mix(in srgb, var(--accent) 25%, rgba(0,0,0,0.5));
+    box-shadow: 0 24px 64px -12px color-mix(in srgb, var(--accent) 25%, rgba(0, 0, 0, 0.5));
   }
 
   @keyframes modal-in {
@@ -727,7 +886,9 @@
     cursor: pointer;
     color: var(--text-main);
     flex-shrink: 0;
-    transition: background 200ms ease, transform 200ms ease;
+    transition:
+      background 200ms ease,
+      transform 200ms ease;
   }
 
   .modal-close:hover {
@@ -773,8 +934,8 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.18);
-    background: rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(6px);
     color: #fff;
     display: flex;
@@ -786,9 +947,15 @@
     padding: 0;
   }
 
-  .modal-nav:hover { background: rgba(0,0,0,0.85); }
-  .modal-prev { left: 0.75rem; }
-  .modal-next { right: 0.75rem; }
+  .modal-nav:hover {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .modal-prev {
+    left: 0.75rem;
+  }
+  .modal-next {
+    right: 0.75rem;
+  }
 
   .modal-dots {
     position: absolute;
@@ -805,18 +972,18 @@
     height: 7px;
     border-radius: 50%;
     border: none;
-    background: rgba(255,255,255,0.35);
+    background: rgba(255, 255, 255, 0.35);
     cursor: pointer;
     padding: 0;
-    transition: background 150ms ease, transform 150ms ease;
+    transition:
+      background 150ms ease,
+      transform 150ms ease;
   }
 
   .modal-dot.active {
     background: #fff;
     transform: scale(1.35);
   }
-
-
 
   /* ── Modal body ── */
   .modal-title-block {
@@ -916,7 +1083,6 @@
     padding: 0.25em 0.65em;
     line-height: 1.4;
   }
-
 
   /* ── Tags inside modal ── */
   :global(.modal .tags) {
