@@ -19,6 +19,21 @@
 
   const projects: Project[] = [
     {
+      title: "DataFlow",
+      date: "May 2026 – Present",
+      description:
+        "An automated Python ETL workflow to ingest, transform, and merge external API data into a normalized SQL database for performance analytics.",
+      bullets: [
+        "Engineered an automated Python ETL workflow to ingest, transform, and merge external API data into a normalized SQL database for performance analytics.",
+        "Deployed the backend architecture on a Linux environment utilizing Nginx and Gunicorn, implementing rigorous test scripts to ensure data integrity.",
+      ],
+      tags: ["Python", "Django", "PostgreSQL", "SQL", "Nginx", "Gunicorn"],
+      category: "softdev",
+      github: null,
+      demo: null,
+      images: [],
+    },
+    {
       title: "Pulse",
       date: "March 2026 – Present",
       description:

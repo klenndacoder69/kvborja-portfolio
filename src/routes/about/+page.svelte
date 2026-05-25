@@ -100,7 +100,7 @@
           Frameworks & Tools
         </div>
         <div class="tags">
-          {#each ['SvelteKit', 'Next.js', 'React', 'Express.js', 'Node.js', 'Supabase', 'MongoDB', 'Docker', 'Git', 'TensorFlow', 'BERT', 'RESTful APIs'] as s}
+          {#each ['SvelteKit', 'Next.js', 'React', 'Django', 'Express.js', 'Node.js', 'Supabase', 'PostgreSQL', 'MongoDB', 'Docker', 'Nginx', 'Gunicorn', 'Git', 'TensorFlow', 'BERT', 'RESTful APIs'] as s}
             <span class="tag">{s}</span>
           {/each}
         </div>
