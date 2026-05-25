@@ -181,6 +181,30 @@
         "/screenshots/ysync/ysync_1.png",
       ],
     },
+    {
+      title: "Catch The Proot",
+      date: "2024",
+      description:
+        "A 2D platformer game created in Java and JavaFX, featuring custom player mechanics and animations.",
+      bullets: [
+        "Developed a 2D platformer game using Java and the JavaFX framework.",
+        "Implemented core platformer mechanics, character animations, and level design.",
+      ],
+      tags: [
+        "Java",
+        "JavaFX",
+        "Game Development",
+      ],
+      category: "softdev",
+      github: "https://github.com/klenndacoder69/Catch-The-Proot",
+      demo: null,
+      images: [
+        "/screenshots/catchtheproot/ctp_0.png",
+        "/screenshots/catchtheproot/ctp_1.gif",
+        "/screenshots/catchtheproot/ctp_2.gif",
+        "/screenshots/catchtheproot/ctp_3.gif",
+      ],
+    },
   ];
 
   const categoryMeta = {
