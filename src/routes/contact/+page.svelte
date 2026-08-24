@@ -31,14 +31,14 @@
 
 <svelte:head>
   <title>Contact — Klenn Jakek Borja</title>
-  <meta name="description" content="Get in touch with Klenn Jakek Borja — open to internships, jobs, and collaborations." />
+  <meta name="description" content="Get in touch with Klenn Jakek Borja — open to collaborations and new opportunities." />
 </svelte:head>
 
 <div class="page">
   <div>
     <h1>Contact</h1>
     <p class="lead" style="margin-top:0.75em;">
-      Open to internships, jobs, collaborations, or just chatting about tech.
+      Open to collaborations, new opportunities, or just chatting about tech.
       I try to respond within a day or two.
     </p>
   </div>
@@ -68,7 +68,7 @@
 
   <div class="avail-note">
     <span class="avail-dot"></span>
-    Available for internship — graduating July 2026
+    Currently at Bronstein, Gewirtz & Grossman, LLC
   </div>
 
 </div>

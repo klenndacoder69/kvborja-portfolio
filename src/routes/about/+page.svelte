@@ -10,11 +10,12 @@
   <h1>About</h1>
 
   <p class="lead">
-    I'm Klenn Jakek Borja — a CS student at UP Los Baños with a dual focus on
-    <strong>systems/cybersecurity</strong> and <strong>full-stack software engineering</strong>.
-    I got hooked on programming by wanting to understand how things work under the hood,
-    and that curiosity has never left. Outside of code I enjoy CTFs, homelab tinkering, open-source,
-    and Linux rabbit holes.
+    I'm Klenn Jakek Borja — a <strong>Python Developer and Data Engineer</strong> at
+    Bronstein, Gewirtz &amp; Grossman, LLC, and a UPLB Computer Science graduate
+    (<strong>Magna Cum Laude</strong>) with a dual focus on <strong>systems/cybersecurity</strong>
+    and <strong>full-stack software engineering</strong>. I got hooked on programming by wanting
+    to understand how things work under the hood, and that curiosity has never left. Outside of
+    code I enjoy CTFs, homelab tinkering, open-source, and Linux rabbit holes.
   </p>
 
   <!-- Education -->
@@ -26,10 +27,10 @@
         B.S. Computer Science
       </div>
       <p style="margin:0.25em 0 0; color:var(--text-link); font-size:0.95em; font-weight:600;">
-        University of the Philippines Los Baños &nbsp;·&nbsp; Expected July 2026
+        University of the Philippines Los Baños &nbsp;·&nbsp; July 2026
       </p>
       <div class="tags" style="margin-top: 0.5em;">
-        <span class="tag">GWA: 1.45 — Magna Cum Laude equivalent</span>
+        <span class="tag">GWA: 1.4418 — Magna Cum Laude</span>
         <span class="tag">Honor Society of the Philippines Nominee (Top 10%)</span>
         <span class="tag">DOST-SEI Merit Scholar</span>
       </div>
@@ -40,6 +41,23 @@
   <div class="section-gap">
     <h2>Experience</h2>
     <div class="cardset stagger" style="margin-top:1em;">
+
+      <div class="card-anchor card card-content">
+        <div class="exp-header">
+          <div>
+            <div class="card-title" style="font-size:1.05em;">Python Developer and Data Engineer</div>
+            <div class="exp-org">
+              <Icon icon="tabler:building" width="14" height="14" />
+              Bronstein, Gewirtz &amp; Grossman, LLC &nbsp;·&nbsp; New York, United States · Remote
+            </div>
+          </div>
+          <span class="exp-date">Jul 2026 – Present</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Design and maintain the data infrastructure and backend systems supporting the firm's operations, building ETL pipelines and RESTful APIs to keep critical workflows running reliably.</li>
+          <li>Apply data engineering, automation, and database management expertise to develop scalable Python solutions that improve efficiency and ensure data integrity across the firm's technology infrastructure.</li>
+        </ul>
+      </div>
 
       <div class="card-anchor card card-content">
         <div class="exp-header">
@@ -61,13 +79,13 @@
       <div class="card-anchor card card-content">
         <div class="exp-header">
           <div>
-            <div class="card-title" style="font-size:1.05em;">Human Resources Department Member</div>
+            <div class="card-title" style="font-size:1.05em;">Resident Member</div>
             <div class="exp-org">
               <Icon icon="tabler:users" width="14" height="14" />
               Young Software Engineers' Society
             </div>
           </div>
-          <span class="exp-date">Sep 2024 – Present</span>
+          <span class="exp-date">Sep 2024 – Jul 2026</span>
         </div>
         <ul class="exp-bullets">
           <li>Spearheaded development of the YSYNC applicant management system to automate data tracking for 80+ candidates while co-organizing operational events for 50+ active members.</li>

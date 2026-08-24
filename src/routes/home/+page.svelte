@@ -11,14 +11,14 @@
   const currently = [
     { key: 'working_on', label: 'working on', value: 'Linux SIEM Homelab' },
     { key: 'studying',   label: 'studying',   value: 'ISC2 CC · Google Cybersecurity Cert' },
-    { key: 'open_to',    label: 'open to',    value: 'Internships · Full-time (July 2026)' },
+    { key: 'working_at', label: 'working at', value: 'Bronstein, Gewirtz & Grossman, LLC' },
     { key: 'based_in',   label: 'based in',   value: 'Philippines · Remote-friendly' },
   ];
 </script>
 
 <svelte:head>
-  <title>Klenn Jakek Borja — CS Student & Developer</title>
-  <meta name="description" content="CS student at UP Los Baños specializing in cybersecurity and full-stack development." />
+  <title>Klenn Jakek Borja — Python Developer & Data Engineer</title>
+  <meta name="description" content="Python Developer and Data Engineer at Bronstein, Gewirtz & Grossman, LLC, specializing in cybersecurity and full-stack development." />
 </svelte:head>
 
 <div class="page home-page">
@@ -28,12 +28,12 @@
     <div class="hero-text">
       <div class="hero-eyebrow">
         <span class="dot"></span>
-        Open to opportunities
+        Python Developer & Data Engineer
       </div>
       <h1 class="hero-name">Klenn Jakek<br />Borja</h1>
       <p class="hero-tagline">
-        CS student at <strong>UP Los Baños</strong> — I build secure systems
-        and full-stack applications. From kernel-level intrusion detection
+        Python Developer and Data Engineer at <strong>Bronstein, Gewirtz & Grossman, LLC</strong>
+        — I build secure systems and full-stack applications. From kernel-level intrusion detection
         to RESTful APIs, I like knowing how everything works under the hood.
       </p>
       <div class="hero-actions">
