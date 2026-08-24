@@ -18,7 +18,13 @@
 
   let termEl: HTMLDivElement;
 
-  const sleep = (ms: number) => new Promise<void>(r => setTimeout(r, ms));
+  // Reduced-motion users should land on the finished state rather than watch
+  // the boot sequence type itself out. Set in onMount before boot() runs, so
+  // every sleep below resolves immediately.
+  let reduceMotion = false;
+
+  const sleep = (ms: number) =>
+    reduceMotion ? Promise.resolve() : new Promise<void>(r => setTimeout(r, ms));
 
   function scrollBottom() {
     setTimeout(() => termEl?.scrollTo({ top: termEl.scrollHeight }), 0);
@@ -172,7 +178,12 @@
   );
 
   onMount(() => {
-    const blink = setInterval(() => { cursorOn = !cursorOn; }, 530);
+    reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const blink = reduceMotion
+      ? undefined
+      : setInterval(() => { cursorOn = !cursorOn; }, 530);
+
     (async () => {
       titleVisible = true;
       await sleep(900);
@@ -180,7 +191,8 @@
       await sleep(650);
       await boot();
     })();
-    return () => clearInterval(blink);
+
+    return () => { if (blink) clearInterval(blink); };
   });
 </script>
 
@@ -196,7 +208,7 @@
 
   <div class="name-block" class:visible={titleVisible}>
     <div class="name">Klenn Jakek Borja</div>
-    <div class="tagline">Software Developer</div>
+    <div class="tagline">Python Developer &amp; Data Engineer</div>
   </div>
 
   <div class="sep" class:visible={termVisible}></div>
@@ -238,9 +250,9 @@
   .screen {
     position: fixed;
     inset: 0;
-    background: #0a0d0a;
-    color: #33ff33;
-    font-family: 'Courier New', 'Lucida Console', monospace;
+    background: var(--crt-bg);
+    color: var(--phosphor);
+    font-family: var(--font-crt);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -256,11 +268,7 @@
   .scanlines {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent 0px, transparent 3px,
-      rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
-    );
+    background: var(--scanline);
     pointer-events: none;
     z-index: 10;
   }
@@ -281,15 +289,13 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #fff;
-    text-shadow:
-      0 0 20px rgba(51,255,51,0.55),
-      0 0 60px rgba(51,255,51,0.2);
+    text-shadow: var(--text-glow-crt);
   }
   .tagline {
     font-size: 0.82rem;
     letter-spacing: 0.26em;
     text-transform: uppercase;
-    color: #33ff3380;
+    color: color-mix(in srgb, var(--phosphor) 55%, transparent);
     margin-top: 0.45rem;
   }
 
@@ -297,7 +303,7 @@
   .sep {
     width: 0;
     height: 1px;
-    background: #33ff3340;
+    background: color-mix(in srgb, var(--phosphor) 28%, transparent);
     transition: width 0.9s ease 0.15s;
     max-width: 640px;
     z-index: 1;
@@ -316,8 +322,8 @@
   .term-wrap.visible { opacity: 1; transform: none; }
 
   .term {
-    background: #050705;
-    border: 1px solid #33ff3335;
+    background: var(--crt-bg-deep);
+    border: 1px solid color-mix(in srgb, var(--phosphor) 22%, transparent);
     border-radius: 6px;
     padding: 1rem 1.25rem;
     min-height: 200px;
@@ -326,12 +332,12 @@
     font-size: 0.875rem;
     line-height: 1.75;
     scrollbar-width: thin;
-    scrollbar-color: #33ff3325 transparent;
+    scrollbar-color: color-mix(in srgb, var(--phosphor) 18%, transparent) transparent;
   }
 
   .tl { white-space: pre-wrap; word-break: break-all; }
-  .pr { color: #33ff33; font-weight: bold; }
-  .cur { color: #33ff33; }
+  .pr { color: var(--phosphor); font-weight: bold; }
+  .cur { color: var(--phosphor); }
   .cur.off { opacity: 0; }
 
   /* ── hints ── */
@@ -339,13 +345,13 @@
     margin-top: 0.55rem;
     text-align: center;
     font-size: 0.75rem;
-    color: #33ff3355;
+    color: color-mix(in srgb, var(--phosphor) 38%, transparent);
     min-height: 1.4em;
     letter-spacing: 0.04em;
   }
   :global(kbd) {
-    background: rgba(51,255,51,0.1);
-    border: 1px solid rgba(51,255,51,0.3);
+    background: color-mix(in srgb, var(--phosphor) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--phosphor) 30%, transparent);
     border-radius: 3px;
     padding: 0.05em 0.4em;
     font-family: inherit;
@@ -358,7 +364,7 @@
     right: 1.75rem;
     z-index: 20;
     /* reset button defaults */
-    font-family: 'Courier New', 'Lucida Console', monospace;
+    font-family: var(--font-crt);
     cursor: pointer;
     /* pill styling */
     display: inline-flex;
@@ -369,16 +375,20 @@
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #0a0d0a;
-    background: #33ff33;
+    color: var(--crt-bg);
+    background: var(--phosphor);
     border: none;
-    border-radius: 9999em;
-    box-shadow: 0 0 18px rgba(51,255,51,0.45), 0 0 6px rgba(51,255,51,0.3);
+    border-radius: var(--radius-pill);
+    box-shadow:
+      0 0 18px color-mix(in srgb, var(--phosphor) 45%, transparent),
+      0 0 6px color-mix(in srgb, var(--phosphor) 30%, transparent);
     transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
   }
   .skip:hover {
-    background: #5fff5f;
-    box-shadow: 0 0 28px rgba(51,255,51,0.7), 0 0 10px rgba(51,255,51,0.5);
+    background: #6bff6b;
+    box-shadow:
+      0 0 28px color-mix(in srgb, var(--phosphor) 70%, transparent),
+      0 0 10px color-mix(in srgb, var(--phosphor) 50%, transparent);
     transform: translateY(-2px);
   }
   .skip:active { transform: translateY(0); }

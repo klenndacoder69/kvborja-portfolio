@@ -1,75 +1,237 @@
 /* =====================================================
    DESIGN SYSTEM — kjbportfolio
+   =====================================================
+   Structure:
+     1. Fonts
+     2. Tokens (light base → dark override → explicit [data-theme])
+     3. Reset & base
+     4. Typography
+     5. Layout primitives
+     6. Buttons
+     7. Cards
+     8. Tags
+     9. Section headings
+    10. View transitions
+    11. Reveal system
+    12. Reduced motion  ← must stay last
    ===================================================== */
 
-/* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
-
-/* ── Palette ── */
-:root {
-  /* Light mode (fallback) */
-  --green:           #16a34a;
-  --green-soft:      rgba(22,163,74,0.12);
-  --green-glow:      rgba(22,163,74,0.25);
-
-  --bg-canvas:       #ffffff;
-  --bg-surface:      #f4f4f5;
-  --bg-surface-2:    #e4e4e7;
-  --bg-surface-hover:#e8f5ee;
-
-  --text-main:       #09090b;
-  --text-muted:      #71717a;
-  --text-link:       #16a34a;
-  --text-link-hover: #15803d;
-
-  --border:          rgba(0,0,0,0.08);
-  --border-strong:   rgba(0,0,0,0.15);
-
-  --font-body:    'Inter', 'Helvetica Neue', sans-serif;
-  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
-  --layout-max-width: 64rem;
-
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+/* ─────────────────────────────────────────────────────
+   1. FONTS — self-hosted variable woff2 (latin + latin-ext).
+   Paths are RELATIVE on purpose: Vite then hashes them and
+   rewrites the URLs for the /kvborja-portfolio base path.
+   An absolute url('/fonts/…') would 404 on GitHub Pages.
+   The previous blocking @import also serialised the font
+   request behind this stylesheet's own request, which is
+   what made weight-900 text visibly reflow on load.
+   ───────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('./fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('./fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ─────────────────────────────────────────────────────
+   2. TOKENS
+   Base :root is the COMPLETE light palette. Dark is
+   applied twice on purpose: once for the OS preference
+   (unless an explicit light choice overrides it) and
+   once for an explicit dark choice, so the toggle wins
+   in both directions. Never give a colour its only
+   definition inside a media query.
+   ───────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+
+  /* Accent */
+  --green:           #16a34a;
+  --green-soft:      rgba(22,163,74,0.10);
+  --green-glow:      rgba(22,163,74,0.25);
+  --accent:          var(--green);
+
+  /* Category accents — MUST be defined here, not only in
+     media queries, or they resolve to nothing when the UA
+     reports no colour-scheme preference. */
+  --cyber-color:     #059669;
+  --softdev-color:   #2563eb;
+  --both-color:      #7c3aed;
+
+  /* Surfaces */
+  --bg-canvas:       #ffffff;
+  --bg-surface:      #f7f7f8;
+  --bg-surface-2:    #ececee;
+  --bg-surface-hover:#f0faf4;
+
+  /* Text */
+  --text-main:       #09090b;
+  --text-muted:      #52525b;
+  --text-link:       #15803d;
+  --text-link-hover: #166534;
+
+  /* Lines */
+  --border:          rgba(0,0,0,0.09);
+  --border-strong:   rgba(0,0,0,0.16);
+  --border-accent:   color-mix(in srgb, var(--green) 40%, transparent);
+
+  /* Cyber vocabulary — one source of truth for the terminal
+     route, the access gate, and the ambient backdrop. */
+  --phosphor:        #33ff33;
+  --phosphor-dim:    rgba(51,255,51,0.45);
+  --crt-bg:          #0a0d0a;
+  --crt-bg-deep:     #050805;
+  --scanline:        repeating-linear-gradient(
+                       to bottom,
+                       transparent 0 3px,
+                       rgba(0,0,0,0.07) 3px 4px
+                     );
+  --font-crt:        'Courier New', 'Lucida Console', monospace;
+  /* The layered phosphor bloom behind the terminal's display type. */
+  --text-glow-crt:   0 0 20px rgba(51,255,51,0.55),
+                     0 0 60px rgba(51,255,51,0.20);
+
+  /* Ambient backdrop */
+  --ambient-tile:    48px;
+  --ambient-line:    color-mix(in srgb, var(--green) 11%, transparent);
+  --ambient-scan:    color-mix(in srgb, var(--green) 4%,  transparent);
+
+  /* Glow scale — the redesign's signature */
+  --glow-sm:  0 2px 10px  color-mix(in srgb, var(--green) 18%, transparent);
+  --glow-md:  0 10px 30px color-mix(in srgb, var(--green) 22%, transparent);
+  --glow-lg:  0 18px 50px color-mix(in srgb, var(--green) 26%, transparent);
+  --text-glow: 0 0 18px color-mix(in srgb, var(--green) 40%, transparent),
+               0 0 56px color-mix(in srgb, var(--green) 15%, transparent);
+
+  /* Type */
+  --font-body:    'Inter', 'Helvetica Neue', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  --fs-display: clamp(2.9rem, 8.5vw, 5.25rem);
+  --fs-h1:      clamp(2.4rem, 6vw, 3.9rem);
+  --fs-h2:      1rem;
+  --fs-lg:      1.125rem;
+  --fs-body:    1rem;
+  --fs-sm:      0.875rem;
+  --fs-xs:      0.78rem;
+  --fs-2xs:     0.7rem;
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  /* Geometry */
+  --layout-max-width: 66rem;
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-pill: 9999em;
+
+  /* Motion */
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-shift: 18px;
+  --reveal-dur:   520ms;
+  --reveal-step:  55ms;
+}
+
+/* Dark — OS preference, unless the user explicitly chose light */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
     --green:           #4ade80;
-    --green-soft:      rgba(74,222,128,0.10);
+    --green-soft:      rgba(74,222,128,0.09);
     --green-glow:      rgba(74,222,128,0.20);
 
-    --bg-canvas:       #0a0a0b;
-    --bg-surface:      #141416;
-    --bg-surface-2:    #1c1c1f;
-    --bg-surface-hover:rgba(74,222,128,0.07);
-
-    --text-main:       #f4f4f5;
-    --text-muted:      #71717a;
-    --text-link:       #4ade80;
-    --text-link-hover: #86efac;
-
-    --border:          rgba(255,255,255,0.07);
-    --border-strong:   rgba(255,255,255,0.12);
-
-    /* Accent colors for project categories */
     --cyber-color:     #34d399;
     --softdev-color:   #60a5fa;
     --both-color:      #c084fc;
+
+    --bg-canvas:       #08090a;
+    --bg-surface:      #101113;
+    --bg-surface-2:    #191b1e;
+    --bg-surface-hover:rgba(74,222,128,0.06);
+
+    --text-main:       #f4f4f5;
+    --text-muted:      #a1a1aa;
+    --text-link:       #4ade80;
+    --text-link-hover: #86efac;
+
+    --border:          rgba(255,255,255,0.08);
+    --border-strong:   rgba(255,255,255,0.15);
+
+    /* A light hairline on near-black reads far stronger than a
+       dark one on white, so dark alpha must be LOWER. */
+    --ambient-line:    color-mix(in srgb, var(--green) 8%, transparent);
+    --ambient-scan:    color-mix(in srgb, var(--green) 7%, transparent);
   }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --cyber-color:     #059669;
-    --softdev-color:   #2563eb;
-    --both-color:      #7c3aed;
-  }
+/* Dark — explicit choice, beats the OS in both directions */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --green:           #4ade80;
+  --green-soft:      rgba(74,222,128,0.09);
+  --green-glow:      rgba(74,222,128,0.20);
+
+  --cyber-color:     #34d399;
+  --softdev-color:   #60a5fa;
+  --both-color:      #c084fc;
+
+  --bg-canvas:       #08090a;
+  --bg-surface:      #101113;
+  --bg-surface-2:    #191b1e;
+  --bg-surface-hover:rgba(74,222,128,0.06);
+
+  --text-main:       #f4f4f5;
+  --text-muted:      #a1a1aa;
+  --text-link:       #4ade80;
+  --text-link-hover: #86efac;
+
+  --border:          rgba(255,255,255,0.08);
+  --border-strong:   rgba(255,255,255,0.15);
+
+  --ambient-line:    color-mix(in srgb, var(--green) 8%, transparent);
+  --ambient-scan:    color-mix(in srgb, var(--green) 7%, transparent);
 }
 
-/* ── Reset & Base ── */
+/* ── 3. Reset & base ── */
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
@@ -104,27 +266,53 @@ a[href]:not([class]):focus {
   background-size: 100% 1.5px;
 }
 
-/* ── Headings ── */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── 4. Typography ── */
 h1, h2, h3, h4 {
   color: var(--text-main);
   margin: 0;
   line-height: 1.2;
 }
 
+/* The full-bleed green rule is the page's signature. It is a
+   pseudo-element rather than a border-top so it can carry a
+   gradient fade and a glow. */
 h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  position: relative;
+  font-size: var(--fs-h1);
   font-weight: 900;
-  letter-spacing: -0.03em;
-  border-top: 3px solid var(--green);
-  padding-top: 0.4em;
+  letter-spacing: -0.04em;
+  padding-top: 0.42em;
   text-transform: uppercase;
 }
 
+h1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--green) 0%,
+    var(--green) 18%,
+    color-mix(in srgb, var(--green) 12%, transparent) 100%
+  );
+  box-shadow: var(--glow-sm);
+}
+
 h2 {
-  font-size: 1.1rem;
+  font-size: var(--fs-h2);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
   display: flex;
   align-items: center;
@@ -141,6 +329,8 @@ h2::before {
   flex-shrink: 0;
 }
 
+h3 { font-size: var(--fs-lg); font-weight: 800; letter-spacing: -0.015em; }
+
 span.title {
   font-size: 1.1rem;
   font-weight: 800;
@@ -149,12 +339,21 @@ span.title {
 
 span.subtitle {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: var(--fs-2xs);
   text-transform: uppercase;
   font-weight: 400;
-  opacity: 0.4;
+  opacity: 0.55;
   letter-spacing: 0.2em;
 }
+
+.lead {
+  font-size: var(--fs-lg);
+  line-height: 1.75;
+  max-width: 60ch;
+  color: var(--text-muted);
+}
+
+.lead strong { color: var(--text-main); font-weight: 700; }
 
 .visually-hidden {
   position: absolute; width: 1px; height: 1px;
@@ -162,7 +361,7 @@ span.subtitle {
   clip: rect(0,0,0,0); border: 0;
 }
 
-/* ── Layout ── */
+/* ── 5. Layout primitives ── */
 .content-layout {
   position: relative;
   margin: auto;
@@ -170,34 +369,26 @@ span.subtitle {
   max-width: var(--layout-max-width);
 }
 
-.center {
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.page {
+  padding: var(--space-7) 1.25rem var(--space-8);
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
 }
 
-.center-v {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
+.section-gap { margin-top: var(--space-8); }
 
-.full { height: 100vh; }
-
-/* ── Buttons ── */
+/* ── 6. Buttons ── */
 .button {
   display: inline-flex;
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   border: 1.5px solid var(--border-strong);
   color: var(--text-main);
   background: var(--bg-surface);
   text-decoration: none;
-  padding: 0.5em 1.1em;
-  border-radius: 9999em;
+  padding: 0.55em 1.15em;
+  border-radius: var(--radius-pill);
   align-items: center;
   justify-content: center;
   gap: 6px;
@@ -207,80 +398,39 @@ span.subtitle {
   cursor: pointer;
 }
 
-.button:hover, .button:focus {
+.button:hover, .button:focus-visible {
   background: var(--green-soft);
   border-color: var(--green);
   color: var(--green);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px var(--green-glow);
-  outline: none;
+  box-shadow: var(--glow-sm);
 }
 
-/* ── Action buttons ── */
-.action-button {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-  font-size: inherit;
-  font-family: inherit;
-}
-
-.action-button > .icon {
-  width: 32px;
-  height: 32px;
-  padding: 6px;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--text-main);
-  transition: background 200ms ease, color 200ms ease;
-}
-
-.action-button:focus > .icon,
-.action-button:hover > .icon {
+/* Promoted from home/+page.svelte — this is a system-level variant. */
+.button-primary {
   background: var(--green-soft);
+  border-color: var(--green);
   color: var(--green);
+  font-weight: 700;
 }
 
-.action-button > .text {
-  margin-left: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-main);
+.button-primary:hover, .button-primary:focus-visible {
+  background: var(--green);
+  color: var(--bg-canvas);
+  box-shadow: var(--glow-md);
 }
 
-/* ── Action button group ── */
-.group-ab {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  gap: 0.25rem;
-}
-
-@media screen and (max-width: 425px) {
-  .group-ab { gap: 0.5em 2em; }
-}
-
-/* ── Cards ── */
+/* ── 7. Cards ── */
 .cardset {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .cardset.grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 @media screen and (max-width: 767px) {
@@ -295,57 +445,76 @@ span.subtitle {
 
 .card-title {
   display: flex;
-  font-size: 1rem;
+  font-size: var(--fs-body);
   font-weight: 700;
   align-items: center;
   gap: 0.4em;
+  letter-spacing: -0.01em;
 }
 
-.card-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.card.card-content { gap: 0.75rem; }
+.card.card-content { gap: var(--space-3); }
 
 .card.card-content > :is(p, ul, ol, h1, h2, h3, h4, h5, h6) { margin: 0; }
 
-/* ── Card anchor ── */
+/* .card-anchor carries the shared card signature: a lift, a glow,
+   and an accent bar that wipes in from the left — generalised from
+   the projects page's .proj-bar, the best gesture in the codebase.
+   Set --card-accent to category-code an individual card. */
 .card-anchor {
+  position: relative;
+  overflow: hidden;
   display: block;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   font-weight: inherit;
   transform: translateY(0);
-  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease;
+  transition: transform 220ms var(--ease-out), box-shadow 220ms ease,
+              border-color 220ms ease, background 220ms ease;
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
+  padding: 1.35rem 1.6rem;
+}
+
+.card-anchor::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--card-accent, var(--green));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms var(--ease-out);
 }
 
 .card-anchor:hover {
   background: var(--bg-surface-hover);
-  border-color: var(--green);
+  border-color: color-mix(in srgb, var(--card-accent, var(--green)) 55%, transparent);
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px var(--green-glow);
+  box-shadow: var(--glow-md);
 }
 
-.card-anchor:focus {
-  outline: 2px solid var(--green);
-  outline-offset: 2px;
-}
+.card-anchor:hover::after,
+.card-anchor:focus-visible::after { transform: scaleX(1); }
 
-/* ── Tags ── */
+/* ── 8. Tags ── */
 .tag {
   display: inline-block;
   background: var(--bg-surface-2);
   border: 1px solid var(--border);
-  border-radius: 9999em;
-  padding: 0.18em 0.7em;
-  font-size: 0.78rem;
+  border-radius: var(--radius-pill);
+  padding: 0.2em 0.72em;
+  font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--text-muted);
+}
+
+/* Category-coded variant — reads the ambient --card-accent. */
+.tag-accent {
+  background: color-mix(in srgb, var(--card-accent, var(--green)) 12%, transparent);
+  border-color: color-mix(in srgb, var(--card-accent, var(--green)) 30%, transparent);
+  color: var(--card-accent, var(--green));
 }
 
 .tags {
@@ -354,31 +523,40 @@ span.subtitle {
   gap: 0.35em;
 }
 
-/* ── Header / Nav ── */
-.primary-header {
-  padding: 1.25rem 1rem 0.75rem;
-  text-align: center;
-  view-transition-name: primary-header;
-}
-
-.primary-nav {
+/* ── 9. Section headings (see SectionHeading.svelte) ── */
+.section-head {
   display: flex;
-  min-height: 44px;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  view-transition-name: primary-nav;
-  position: sticky;
-  top: 0;
-  background: color-mix(in srgb, var(--bg-canvas) 85%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 50;
+  gap: 0.85rem;
+  margin-bottom: var(--space-5);
 }
 
-/* ── View transitions ── */
+.section-head .sh-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--section-accent, var(--green));
+  flex-shrink: 0;
+}
+
+.section-head .sh-title { flex-shrink: 0; }
+
+/* The number replaces the global green tick. */
+.section-head .sh-title::before { display: none; }
+
+.section-head .sh-rule {
+  flex: 1;
+  height: 1px;
+  min-width: 1.5rem;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--section-accent, var(--green)) 35%, transparent),
+    transparent
+  );
+}
+
+/* ── 10. View transitions ── */
 @keyframes fade-in  { from { opacity: 0; } }
 @keyframes fade-out { to   { opacity: 0; } }
 @keyframes slide-from-right { from { transform: translateX(24px); } }
@@ -393,57 +571,115 @@ span.subtitle {
              280ms cubic-bezier(0.4,0,0.2,1) both slide-from-right;
 }
 
+/* The shell stays put while the page cross-fades beneath it. */
+.site-header { view-transition-name: site-header; }
+
+/* ─────────────────────────────────────────────────────
+   11. REVEAL SYSTEM
+   Two tiers, and in BOTH of them the resting state is
+   VISIBLE. Nothing here hides content unconditionally —
+   that inversion is what made cards 7+ of an 8-card grid
+   permanently invisible under the old nth-child ladder.
+   See src/lib/anim/reveal.ts.
+   ───────────────────────────────────────────────────── */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(var(--reveal-shift)); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Tier 1 — pre-paint gate. Applies only while the inline head
+   script has confirmed JS is live AND the runtime has not yet
+   taken ownership. No JS → the class is never added → visible. */
+html.js-reveal:not(.reveal-live) .reveal > * { opacity: 0; }
+
+/* Tier 2 — runtime owned. The ABSENCE of [data-reveal] is the
+   natural, visible, un-animated state, so an element this system
+   never touched (or has finished with) is always visible. */
+[data-reveal='pending'] {
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+}
+
+[data-reveal='in'] {
+  animation: enter-up var(--reveal-dur) var(--ease-out) both;
+  animation-delay: calc(var(--reveal-i, 0) * var(--reveal-step) + var(--reveal-lead, 0ms));
+  will-change: opacity, transform;
+}
+
 /* ── Responsive ── */
 @media screen and (max-width: 625px) {
   span.title { font-size: 1rem; }
   span.subtitle { font-size: 0.6rem; }
+  .lead { font-size: var(--fs-body); }
 }
 
-/* ── Page entry animations ── */
-@keyframes enter-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: none; }
+/* ─────────────────────────────────────────────────────
+   12. REDUCED MOTION — must remain the last block in this
+   file so it overrides everything above it. This is a plain
+   stylesheet, so :global() is invalid here; bare class
+   selectors DO match component-scoped elements but need
+   !important to beat the extra scoping class.
+   ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  /* Nothing loops, nothing travels. The blanket rule is what
+     reaches @keyframes declared inside component <style> blocks
+     (pulse, blink, modal-in, backdrop-in, ambient-*, enter-up).
+     `transition` is deliberately NOT stripped: the 200ms colour
+     fades are not motion, and removing them just makes hover
+     states feel broken. Travel is handled per-element below. */
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  html { scroll-behavior: auto !important; }
+
+  /* Reveals: killing the animation must never leave content
+     hidden. reveal.ts checks the same query and bails before
+     hiding anything, so this is belt-and-braces. */
+  html.js-reveal:not(.reveal-live) .reveal > * { opacity: 1; }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Ambient: freeze the grid (static texture is fine), but REMOVE
+     the scanline — a gradient band parked mid-screen reads as a
+     rendering artefact rather than decoration. */
+  .ambient-grid { animation: none !important; }
+  .ambient-scan { display: none !important; }
+
+  /* Looping accents carry meaning ("available", "live"), so hold
+     them at their visible frame instead of deleting them. */
+  .dot, .avail-dot, .tl-node-live { opacity: 1 !important; }
+  .t-cursor { opacity: 0.8 !important; }
+
+  /* Hover depth: keep the colour and the glow, drop the travel.
+     Enumerated rather than blanket, because .thumb-nav, .modal-nav
+     and .modal-dots use transform for CENTERING and a global
+     `transform: none` would relocate them. */
+  :is(.button, .card-anchor, .focus-card, .proj-card,
+      .contact-card, .modal-close, .filter-pill):hover,
+  :is(.button, .card-anchor, .focus-card, .proj-card,
+      .contact-card, .filter-pill):focus-visible {
+    transform: none !important;
+  }
+  .proj-card:hover .proj-thumb img   { transform: none !important; }
+  .contact-card:hover .contact-arrow { transform: none !important; }
+  /* Animating `gap` triggers layout every frame — the one
+     genuinely expensive transition in the codebase. */
+  .proj-card:hover .proj-cta { gap: 0.25em !important; }
+  .proj-bar, .card-anchor::after { transition: none !important; }
+
+  /* `*` does not match pseudo-elements, so the blanket rule above
+     misses these. The matchMedia guard in +layout.svelte skips
+     startViewTransition entirely; this is the belt. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
-
-.page {
-  padding: 2.5rem 1.25rem 5rem;
-  max-width: var(--layout-max-width);
-  margin: 0 auto;
-}
-
-.page > * {
-  opacity: 0;
-  animation: enter-up 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-
-.page > *:nth-child(1) { animation-delay: 0.04s; }
-.page > *:nth-child(2) { animation-delay: 0.10s; }
-.page > *:nth-child(3) { animation-delay: 0.16s; }
-.page > *:nth-child(4) { animation-delay: 0.22s; }
-.page > *:nth-child(5) { animation-delay: 0.28s; }
-.page > *:nth-child(6) { animation-delay: 0.34s; }
-
-.stagger > * {
-  opacity: 0;
-  animation: enter-up 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-.stagger > *:nth-child(1) { animation-delay: 0.08s; }
-.stagger > *:nth-child(2) { animation-delay: 0.14s; }
-.stagger > *:nth-child(3) { animation-delay: 0.20s; }
-.stagger > *:nth-child(4) { animation-delay: 0.26s; }
-.stagger > *:nth-child(5) { animation-delay: 0.32s; }
-.stagger > *:nth-child(6) { animation-delay: 0.38s; }
-
-/* ── Section gap ── */
-.section-gap { margin-top: 3rem; }
-
-/* ── Lead text ── */
-.lead {
-  font-size: 1rem;
-  line-height: 1.8;
-  max-width: 58ch;
-  color: var(--text-muted);
-}
-
-/* ── Mono utility ── */
-.mono { font-family: var(--font-mono); }

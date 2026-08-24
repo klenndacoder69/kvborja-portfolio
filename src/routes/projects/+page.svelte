@@ -1,6 +1,9 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { base } from "$app/paths";
+  import { reveal } from "$lib/anim/reveal";
+
+  type Category = "cyber" | "softdev" | "both";
 
   type Project = {
     title: string;
@@ -9,7 +12,7 @@
     description: string;
     bullets: string[];
     tags: string[];
-    category: "cyber" | "softdev" | "both";
+    category: Category;
     github: string | null;
     demo: string | null;
     demoNote?: string;
@@ -17,21 +20,78 @@
     images: string[];
   };
 
+  // Order carries the emphasis: the first card is rendered large and the next
+  // two sit immediately beside it. No "featured" labels — position and scale
+  // do the signalling.
   const projects: Project[] = [
     {
-      title: "DataFlow",
-      date: "May 2026 – Present",
+      title: "Predictive Analysis of Economic Vulnerability",
+      date: "Nov 2024 – Dec 2024",
       description:
-        "An automated Python ETL workflow to ingest, transform, and merge external API data into a normalized SQL database for performance analytics.",
+        "An end-to-end ML pipeline scraping 3,500+ news articles to forecast 30-day economic vulnerability trends, with a published research paper.",
       bullets: [
-        "Engineered an automated Python ETL workflow to ingest, transform, and merge external API data into a normalized SQL database for performance analytics.",
-        "Deployed the backend architecture on a Linux environment utilizing Nginx and Gunicorn, implementing rigorous test scripts to ensure data integrity.",
+        "Engineered an end-to-end ML pipeline, scraping a 2-year dataset of 3,500+ news articles and achieving 97.3% sector classification accuracy using Multinomial Naive Bayes.",
+        "Fine-tuned a BERT transformer (73.8% sentiment accuracy) and architected a Bidirectional LSTM neural network to forecast 30-day economic vulnerability trends.",
+        "Co-authored and published the research methodology and predictive time-series findings on SSRN.",
       ],
-      tags: ["Python", "Django", "PostgreSQL", "SQL", "Nginx", "Gunicorn"],
+      tags: [
+        "Python",
+        "Scikit-learn",
+        "TensorFlow",
+        "BERT",
+        "Pandas",
+        "BeautifulSoup",
+        "LSTM",
+      ],
       category: "softdev",
-      github: null,
+      github: "https://github.com/klenndacoder69/PAEVUND",
+      demo: null,
+      publication: "https://dx.doi.org/10.2139/ssrn.5063087",
+      images: ["/screenshots/paevund/paevund_0.png"],
+    },
+    {
+      title: "NoEsc",
+      date: "Feb 2026 – May 2026",
+      description:
+        "A hybrid C++/Python Host Intrusion Detection System analyzing 90,000+ live kernel events in real-time with a 100% True Positive Rate.",
+      bullets: [
+        "Engineered a high-performance hybrid C++/Python daemon utilizing Unix Domain Sockets and Linux auditd to process 90,000+ live kernel events in real-time.",
+        "Trained an SVM anomaly detection model (F1-score: 0.998) and engineered a custom process-aware whitelist that slashed false positive alert noise by 74%.",
+        "Implemented rigorous system-level programming techniques in C++ to minimize CPU overhead while maintaining a 100% True Positive Rate for event processing.",
+      ],
+      tags: [
+        "C++",
+        "Python",
+        "Scikit-learn",
+        "Linux auditd",
+        "Unix Domain Sockets",
+        "Bash",
+        "SVM",
+      ],
+      category: "both",
+      github: "https://github.com/klenndacoder69/NoEsc",
       demo: null,
       images: [],
+    },
+    {
+      title: "Catch The Proot",
+      date: "2024",
+      description:
+        "A 2D platformer game created in Java and JavaFX, featuring custom player mechanics and animations.",
+      bullets: [
+        "Developed a 2D platformer game using Java and the JavaFX framework.",
+        "Implemented core platformer mechanics, character animations, and level design.",
+      ],
+      tags: ["Java", "JavaFX", "Game Development"],
+      category: "softdev",
+      github: "https://github.com/klenndacoder69/Catch-The-Proot",
+      demo: null,
+      images: [
+        "/screenshots/catchtheproot/ctp_0.png",
+        "/screenshots/catchtheproot/ctp_1.gif",
+        "/screenshots/catchtheproot/ctp_2.gif",
+        "/screenshots/catchtheproot/ctp_3.gif",
+      ],
     },
     {
       title: "Pulse",
@@ -84,53 +144,19 @@
       images: ["/screenshots/homelab/homelab_0.jpeg"],
     },
     {
-      title: "NoEsc",
-      date: "Feb 2026 – May 2026",
+      title: "DataFlow",
+      date: "May 2026 – Present",
       description:
-        "A hybrid C++/Python Host Intrusion Detection System analyzing 90,000+ live kernel events in real-time with a 100% True Positive Rate.",
+        "An automated Python ETL workflow to ingest, transform, and merge external API data into a normalized SQL database for performance analytics.",
       bullets: [
-        "Engineered a high-performance hybrid C++/Python daemon utilizing Unix Domain Sockets and Linux auditd to process 90,000+ live kernel events in real-time.",
-        "Trained an SVM anomaly detection model (F1-score: 0.998) and engineered a custom process-aware whitelist that slashed false positive alert noise by 74%.",
-        "Implemented rigorous system-level programming techniques in C++ to minimize CPU overhead while maintaining a 100% True Positive Rate for event processing.",
+        "Engineered an automated Python ETL workflow to ingest, transform, and merge external API data into a normalized SQL database for performance analytics.",
+        "Deployed the backend architecture on a Linux environment utilizing Nginx and Gunicorn, implementing rigorous test scripts to ensure data integrity.",
       ],
-      tags: [
-        "C++",
-        "Python",
-        "Scikit-learn",
-        "Linux auditd",
-        "Unix Domain Sockets",
-        "Bash",
-        "SVM",
-      ],
-      category: "both",
-      github: "https://github.com/klenndacoder69/NoEsc",
+      tags: ["Python", "Django", "PostgreSQL", "SQL", "Nginx", "Gunicorn"],
+      category: "softdev",
+      github: null,
       demo: null,
       images: [],
-    },
-    {
-      title: "Predictive Analysis of Economic Vulnerability",
-      date: "Nov 2024 – Dec 2024",
-      description:
-        "An end-to-end ML pipeline scraping 3,500+ news articles to forecast 30-day economic vulnerability trends, with a published research paper.",
-      bullets: [
-        "Engineered an end-to-end ML pipeline, scraping a 2-year dataset of 3,500+ news articles and achieving 97.3% sector classification accuracy using Multinomial Naive Bayes.",
-        "Fine-tuned a BERT transformer (73.8% sentiment accuracy) and architected a Bidirectional LSTM neural network to forecast 30-day economic vulnerability trends.",
-        "Co-authored and published the research methodology and predictive time-series findings on SSRN.",
-      ],
-      tags: [
-        "Python",
-        "Scikit-learn",
-        "TensorFlow",
-        "BERT",
-        "Pandas",
-        "BeautifulSoup",
-        "LSTM",
-      ],
-      category: "softdev",
-      github: "https://github.com/klenndacoder69/PAEVUND",
-      demo: null,
-      publication: "https://dx.doi.org/10.2139/ssrn.5063087",
-      images: ["/screenshots/paevund/paevund_0.png"],
     },
     {
       title: "AEGIS",
@@ -196,62 +222,69 @@
         "/screenshots/ysync/ysync_1.png",
       ],
     },
-    {
-      title: "Catch The Proot",
-      date: "2024",
-      description:
-        "A 2D platformer game created in Java and JavaFX, featuring custom player mechanics and animations.",
-      bullets: [
-        "Developed a 2D platformer game using Java and the JavaFX framework.",
-        "Implemented core platformer mechanics, character animations, and level design.",
-      ],
-      tags: [
-        "Java",
-        "JavaFX",
-        "Game Development",
-      ],
-      category: "softdev",
-      github: "https://github.com/klenndacoder69/Catch-The-Proot",
-      demo: null,
-      images: [
-        "/screenshots/catchtheproot/ctp_0.png",
-        "/screenshots/catchtheproot/ctp_1.gif",
-        "/screenshots/catchtheproot/ctp_2.gif",
-        "/screenshots/catchtheproot/ctp_3.gif",
-      ],
-    },
   ];
 
-  const categoryMeta = {
+  // Accents come from the design tokens rather than a second set of hex
+  // literals, so category colours stay correct in both themes.
+  const categoryMeta: Record<
+    Category,
+    { label: string; icon: string; color: string }
+  > = {
     cyber: {
       label: "Cybersecurity",
       icon: "tabler:shield-lock",
-      color: "#00c864",
+      color: "var(--cyber-color)",
     },
-    softdev: { label: "Software Dev", icon: "tabler:code", color: "#6496ff" },
+    softdev: {
+      label: "Software Dev",
+      icon: "tabler:code",
+      color: "var(--softdev-color)",
+    },
     both: {
       label: "Cyber & Dev",
       icon: "tabler:layers-intersect",
-      color: "#c864ff",
+      color: "var(--both-color)",
     },
   };
+
+  const filters = [
+    { key: "all", label: "All" },
+    { key: "cyber", label: "Cybersecurity" },
+    { key: "softdev", label: "Software Dev" },
+    { key: "both", label: "Cyber & Dev" },
+  ] as const;
+
+  type FilterKey = (typeof filters)[number]["key"];
+
+  let activeFilter = $state<FilterKey>("all");
+
+  const visible = $derived(
+    activeFilter === "all"
+      ? projects
+      : projects.filter((p) => p.category === activeFilter),
+  );
+
+  function countFor(key: FilterKey): number {
+    return key === "all"
+      ? projects.length
+      : projects.filter((p) => p.category === key).length;
+  }
 
   let selected = $state<Project | null>(null);
   let modalImgIdx = $state(0);
 
-  // Per-card image indices
-  let cardImgIdx = $state<number[]>(projects.map(() => 0));
+  // Keyed by title, not by index, so filtering can't shuffle carousel state
+  // onto the wrong card.
+  let cardImgIdx = $state<Record<string, number>>({});
 
-  function cardNext(e: MouseEvent, i: number) {
-    e.stopPropagation();
-    const len = projects[i].images.length;
-    if (len > 1) cardImgIdx[i] = (cardImgIdx[i] + 1) % len;
+  function imgIdx(p: Project): number {
+    return cardImgIdx[p.title] ?? 0;
   }
 
-  function cardPrev(e: MouseEvent, i: number) {
+  function cardStep(e: MouseEvent, p: Project, delta: number) {
     e.stopPropagation();
-    const len = projects[i].images.length;
-    if (len > 1) cardImgIdx[i] = (cardImgIdx[i] - 1 + len) % len;
+    const len = p.images.length;
+    if (len > 1) cardImgIdx[p.title] = (imgIdx(p) + delta + len) % len;
   }
 
   function open(p: Project) {
@@ -286,10 +319,10 @@
 
 <svelte:window onkeydown={handleBackdropKey} />
 
-<div class="page">
+<div class="page reveal" {@attach reveal()}>
   <div>
     <h1>Projects</h1>
-    <p class="lead" style="margin-top:0.75em;">
+    <p class="lead" style="margin-top:1em;">
       Things I've built. Click any card for more details. More on
       <a href="https://github.com/klenndacoder69" target="_blank" rel="noopener"
         >GitHub</a
@@ -297,101 +330,133 @@
     </p>
   </div>
 
-  <!-- Card grid -->
-  <div class="card-grid stagger" style="margin-top: 2.5rem;">
-    {#each projects as project, i}
-      {@const meta = categoryMeta[project.category]}
+  <!-- Filters -->
+  <div class="filter-bar" role="group" aria-label="Filter projects by category">
+    {#each filters as f}
       <button
-        class="proj-card"
-        style="--accent: {meta.color};"
-        onclick={() => open(project)}
-        id="proj-{project.title.replace(/\s+/g, '-').toLowerCase()}"
-        aria-label="View details for {project.title}"
+        type="button"
+        class="filter-pill"
+        class:active={activeFilter === f.key}
+        style={f.key === "all"
+          ? undefined
+          : `--accent: ${categoryMeta[f.key].color};`}
+        aria-pressed={activeFilter === f.key}
+        onclick={() => (activeFilter = f.key)}
       >
-        <!-- Screenshot / placeholder -->
-        <div class="proj-thumb">
-          {#if project.images.length > 0}
-            <img
-              src="{base}{project.images[cardImgIdx[i]]}"
-              alt="{project.title} screenshot {cardImgIdx[i] + 1}"
-            />
-            <!-- Nav arrows (only when multiple images) -->
-            {#if project.images.length > 1}
-              <!-- svelte-ignore a11y_no_static_element_interactions -->
-              <!-- svelte-ignore a11y_click_events_have_key_events -->
-              <div
-                class="thumb-nav thumb-prev"
-                onclick={(e) => cardPrev(e, i)}
-                role="button"
-                tabindex="-1"
-                aria-label="Previous image"
-              >
-                <Icon icon="tabler:chevron-left" width="14" height="14" />
-              </div>
-              <!-- svelte-ignore a11y_no_static_element_interactions -->
-              <!-- svelte-ignore a11y_click_events_have_key_events -->
-              <div
-                class="thumb-nav thumb-next"
-                onclick={(e) => cardNext(e, i)}
-                role="button"
-                tabindex="-1"
-                aria-label="Next image"
-              >
-                <Icon icon="tabler:chevron-right" width="14" height="14" />
-              </div>
-              <!-- Dots -->
-              <div class="thumb-dots">
-                {#each project.images as _, di}
-                  <span class="thumb-dot" class:active={di === cardImgIdx[i]}
-                  ></span>
-                {/each}
-              </div>
-            {/if}
-          {:else}
-            <div class="thumb-empty">
-              <Icon icon={meta.icon} width="32" height="32" />
-            </div>
-          {/if}
-
-          <!-- Category pill overlaid on image -->
-          <span
-            class="cat-pill"
-            style="color:{meta.color}; background:{meta.color}18; border-color:{meta.color}30;"
-          >
-            <Icon icon={meta.icon} width="11" height="11" />
-            {meta.label}
-          </span>
-        </div>
-
-        <!-- Card body -->
-        <div class="proj-body">
-          <div class="proj-title">{project.title}</div>
-          <div class="proj-date">
-            <Icon icon="tabler:calendar-event" width="11" height="11" />
-            {project.date}
-          </div>
-          <p class="proj-blurb">{project.description}</p>
-
-          <div class="proj-footer">
-            <div class="proj-tags">
-              {#each project.tags.slice(0, 3) as tag}
-                <span class="tag">{tag}</span>
-              {/each}
-              {#if project.tags.length > 3}
-                <span class="tag tag-more">+{project.tags.length - 3}</span>
-              {/if}
-            </div>
-            <span class="proj-cta">
-              Details <Icon icon="tabler:arrow-right" width="13" height="13" />
-            </span>
-          </div>
-        </div>
-
-        <!-- Hover accent bar -->
-        <div class="proj-bar"></div>
+        {f.label}
+        <span class="filter-count">{countFor(f.key)}</span>
       </button>
     {/each}
   </div>
+
+  <!-- Card grid. Keyed on the filter so the container is recreated and the
+       reveal attachment re-runs, re-cascading the new set. -->
+  {#key activeFilter}
+    <div class="card-grid reveal" {@attach reveal({ step: 45, maxIndex: 5 })}>
+      {#each visible as project, i (project.title)}
+        {@const meta = categoryMeta[project.category]}
+        <button
+          class="proj-card"
+          class:lead-card={i === 0}
+          style="--accent: {meta.color};"
+          onclick={() => open(project)}
+          id="proj-{project.title.replace(/\s+/g, '-').toLowerCase()}"
+          aria-label="View details for {project.title}"
+        >
+          <!-- Screenshot / placeholder -->
+          <div class="proj-thumb">
+            {#if project.images.length > 0}
+              <img
+                src="{base}{project.images[imgIdx(project)]}"
+                alt="{project.title} screenshot {imgIdx(project) + 1}"
+              />
+              {#if project.images.length > 1}
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <!-- svelte-ignore a11y_click_events_have_key_events -->
+                <div
+                  class="thumb-nav thumb-prev"
+                  onclick={(e) => cardStep(e, project, -1)}
+                  role="button"
+                  tabindex="-1"
+                  aria-label="Previous image"
+                >
+                  <Icon icon="tabler:chevron-left" width="14" height="14" />
+                </div>
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <!-- svelte-ignore a11y_click_events_have_key_events -->
+                <div
+                  class="thumb-nav thumb-next"
+                  onclick={(e) => cardStep(e, project, 1)}
+                  role="button"
+                  tabindex="-1"
+                  aria-label="Next image"
+                >
+                  <Icon icon="tabler:chevron-right" width="14" height="14" />
+                </div>
+                <div class="thumb-dots">
+                  {#each project.images as _, di}
+                    <span
+                      class="thumb-dot"
+                      class:active={di === imgIdx(project)}
+                    ></span>
+                  {/each}
+                </div>
+              {/if}
+            {:else}
+              <!-- Deliberate accent-tinted panel rather than a faint icon, so
+                   a screenshot-less project doesn't read as broken. -->
+              <div class="thumb-empty">
+                <Icon icon={meta.icon} width="30" height="30" />
+                <span class="te-label">{meta.label}</span>
+              </div>
+            {/if}
+
+            <span class="cat-pill">
+              <Icon icon={meta.icon} width="11" height="11" />
+              {meta.label}
+            </span>
+          </div>
+
+          <!-- Card body -->
+          <div class="proj-body">
+            <div class="proj-meta-row">
+              <div class="proj-date">
+                <Icon icon="tabler:calendar-event" width="11" height="11" />
+                {project.date}
+              </div>
+              {#if project.publication}
+                <span class="proj-pub">
+                  <Icon icon="tabler:file-text" width="11" height="11" />
+                  Published
+                </span>
+              {/if}
+            </div>
+
+            <div class="proj-title">{project.title}</div>
+            <p class="proj-blurb">{project.description}</p>
+
+            <div class="proj-footer">
+              <div class="proj-tags">
+                {#each project.tags.slice(0, i === 0 ? 5 : 3) as tag}
+                  <span class="tag">{tag}</span>
+                {/each}
+                {#if project.tags.length > (i === 0 ? 5 : 3)}
+                  <span class="tag tag-more"
+                    >+{project.tags.length - (i === 0 ? 5 : 3)}</span
+                  >
+                {/if}
+              </div>
+              <span class="proj-cta">
+                Details <Icon icon="tabler:arrow-right" width="13" height="13" />
+              </span>
+            </div>
+          </div>
+
+          <div class="proj-bar"></div>
+        </button>
+      {/each}
+    </div>
+  {/key}
 </div>
 
 <!-- ── Modal ── -->
@@ -413,12 +478,9 @@
       style="--accent: {meta.color};"
     >
       <!-- Modal header -->
-      <div class="modal-header" style="border-color: {meta.color}30;">
+      <div class="modal-header">
         <div class="modal-header-left">
-          <span
-            class="cat-pill"
-            style="color:{meta.color}; background:{meta.color}18; border-color:{meta.color}30;"
-          >
+          <span class="cat-pill">
             <Icon icon={meta.icon} width="12" height="12" />
             {meta.label}
           </span>
@@ -467,12 +529,7 @@
           {/if}
         {:else}
           <div class="modal-img-empty">
-            <Icon
-              icon={meta.icon}
-              width="40"
-              height="40"
-              style="color:{meta.color}; opacity:0.3;"
-            />
+            <Icon icon={meta.icon} width="40" height="40" />
             <span>Screenshots coming soon</span>
           </div>
         {/if}
@@ -480,9 +537,7 @@
 
       <!-- Title + role -->
       <div class="modal-title-block">
-        <h2 class="modal-title" style="color: {meta.color};">
-          {selected.title}
-        </h2>
+        <h2 class="modal-title">{selected.title}</h2>
         {#if selected.role}
           <div class="modal-role">
             <Icon icon="tabler:briefcase" width="14" height="14" />
@@ -498,7 +553,7 @@
       <ul class="modal-bullets">
         {#each selected.bullets as bullet}
           <li>
-            <span class="mbullet" style="color:{meta.color}">▸</span>
+            <span class="mbullet">▸</span>
             {bullet}
           </li>
         {/each}
@@ -551,7 +606,7 @@
             href={selected.publication}
             target="_blank"
             rel="noopener"
-            class="button"
+            class="button button-primary"
           >
             <Icon icon="tabler:file-text" width="16" height="16" />
             Read Paper
@@ -564,12 +619,74 @@
 
 <style>
   /* ════════════════════════════════
+     FILTER BAR
+  ════════════════════════════════ */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.45em 0.95em;
+    cursor: pointer;
+    transition:
+      color 180ms ease,
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 150ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .filter-pill:hover {
+    color: var(--text-main);
+    transform: translateY(-1px);
+  }
+
+  .filter-pill.active {
+    color: var(--accent, var(--green));
+    background: color-mix(in srgb, var(--accent, var(--green)) 12%, transparent);
+    border-color: color-mix(
+      in srgb,
+      var(--accent, var(--green)) 40%,
+      transparent
+    );
+    box-shadow: 0 4px 16px
+      color-mix(in srgb, var(--accent, var(--green)) 18%, transparent);
+  }
+
+  .filter-count {
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
+    opacity: 0.55;
+  }
+
+  /* ════════════════════════════════
      CARD GRID
   ════════════════════════════════ */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+    margin-top: 1.75rem;
+  }
+
+  /* The first card runs wide. Scale is the only "featured" signal — there is
+     deliberately no badge or label. */
+  .proj-card.lead-card {
+    grid-column: span 2;
   }
 
   @media screen and (max-width: 1024px) {
@@ -582,6 +699,10 @@
     .card-grid {
       grid-template-columns: 1fr;
     }
+    /* Must reset, or a span-2 card overflows a single-column grid. */
+    .proj-card.lead-card {
+      grid-column: span 1;
+    }
   }
 
   /* ── Individual card ── */
@@ -590,8 +711,8 @@
     display: flex;
     flex-direction: column;
     background: var(--bg-surface);
-    border: 1px solid transparent;
-    border-radius: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     overflow: hidden;
     cursor: pointer;
     text-align: left;
@@ -600,20 +721,20 @@
     font-size: inherit;
     color: var(--text-main);
     transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 220ms var(--ease-out),
       box-shadow 220ms ease,
       border-color 220ms ease;
   }
 
   .proj-card:hover {
     transform: translateY(-6px);
-    border-color: var(--accent);
-    box-shadow: 0 12px 36px -8px color-mix(in srgb, var(--accent) 30%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    box-shadow: 0 14px 40px -8px color-mix(in srgb, var(--accent) 32%, transparent);
   }
 
   .proj-card:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
 
   /* ── Thumbnail ── */
@@ -624,6 +745,16 @@
     background: color-mix(in srgb, var(--accent) 8%, var(--bg-surface));
     overflow: hidden;
     flex-shrink: 0;
+  }
+
+  .lead-card .proj-thumb {
+    aspect-ratio: 21 / 9;
+  }
+
+  @media screen and (max-width: 600px) {
+    .lead-card .proj-thumb {
+      aspect-ratio: 16 / 9;
+    }
   }
 
   .proj-thumb img {
@@ -641,10 +772,31 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 0.6rem;
     color: var(--accent);
-    opacity: 0.25;
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--accent) 10%, transparent),
+        transparent 60%
+      ),
+      repeating-linear-gradient(
+        45deg,
+        color-mix(in srgb, var(--accent) 5%, transparent) 0 10px,
+        transparent 10px 20px
+      );
+  }
+
+  .te-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    opacity: 0.75;
   }
 
   /* ── Category pill (on image) ── */
@@ -655,14 +807,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.3em;
-    font-size: 0.67rem;
+    font-size: var(--fs-2xs);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    padding: 0.25em 0.65em;
-    border-radius: 9999em;
-    border: 1px solid;
+    padding: 0.3em 0.7em;
+    border-radius: var(--radius-pill);
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 16%, var(--bg-canvas));
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 
   /* ── Card thumbnail nav ── */
@@ -730,36 +885,71 @@
 
   /* ── Card body ── */
   .proj-body {
-    padding: 1rem 1.1rem 1rem;
+    padding: 1.1rem 1.2rem 1.1rem;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
     flex: 1;
   }
 
+  .proj-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
   .proj-title {
-    font-size: 0.98rem;
+    font-size: 1.02rem;
     font-weight: 800;
     line-height: 1.3;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+  }
+
+  .lead-card .proj-title {
+    font-size: 1.3rem;
+  }
+
+  .lead-card .proj-blurb {
+    font-size: var(--fs-sm);
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .proj-date {
     display: flex;
     align-items: center;
     gap: 0.3em;
-    font-size: 0.72rem;
-    opacity: 0.4;
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
+  }
+
+  .proj-pub {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    font-size: var(--fs-2xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green);
+    background: var(--green-soft);
+    border: 1px solid color-mix(in srgb, var(--green) 30%, transparent);
+    border-radius: var(--radius-pill);
+    padding: 0.15em 0.55em;
+    flex-shrink: 0;
   }
 
   .proj-blurb {
     margin: 0.2rem 0 0;
-    font-size: 0.82rem;
+    font-size: var(--fs-xs);
     line-height: 1.6;
-    opacity: 0.7;
+    color: var(--text-muted);
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -771,7 +961,7 @@
     gap: 0.5rem;
     margin-top: 0.75rem;
     padding-top: 0.75rem;
-    border-top: 1px solid color-mix(in srgb, var(--text-main) 10%, transparent);
+    border-top: 1px solid var(--border);
   }
 
   .proj-tags {
@@ -781,22 +971,24 @@
   }
 
   .proj-tags .tag {
-    font-size: 0.68rem;
-    padding: 0.1em 0.55em;
+    font-size: var(--fs-2xs);
+    padding: 0.12em 0.55em;
   }
 
   .tag-more {
-    opacity: 0.5;
+    opacity: 0.6;
   }
 
   .proj-cta {
     display: inline-flex;
     align-items: center;
     gap: 0.25em;
-    font-size: 0.75rem;
+    font-size: var(--fs-2xs);
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     color: var(--accent);
-    opacity: 0.7;
+    opacity: 0.75;
     white-space: nowrap;
     flex-shrink: 0;
     transition:
@@ -819,7 +1011,7 @@
     background: var(--accent);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 280ms var(--ease-out);
   }
 
   .proj-card:hover .proj-bar {
@@ -833,8 +1025,9 @@
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -853,18 +1046,19 @@
 
   .modal {
     background: var(--bg-canvas);
-    border: 1px solid var(--accent);
-    border-radius: 20px;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    border-radius: var(--radius-xl);
     width: 100%;
-    max-width: 640px;
+    max-width: 660px;
     max-height: 90vh;
     overflow-y: auto;
     scrollbar-width: thin;
     display: flex;
     flex-direction: column;
     gap: 0;
-    animation: modal-in 280ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    box-shadow: 0 24px 64px -12px color-mix(in srgb, var(--accent) 25%, rgba(0, 0, 0, 0.5));
+    animation: modal-in 280ms var(--ease-out) forwards;
+    box-shadow: 0 28px 72px -12px
+      color-mix(in srgb, var(--accent) 30%, rgba(0, 0, 0, 0.55));
   }
 
   @keyframes modal-in {
@@ -884,13 +1078,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.25rem;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
     gap: 1rem;
     position: sticky;
     top: 0;
     background: var(--bg-canvas);
     z-index: 1;
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
 
   .modal-header-left {
@@ -900,7 +1094,7 @@
     flex-wrap: wrap;
   }
 
-  /* Reuse .cat-pill but not positioned absolute here */
+  /* Reuse .cat-pill, but not positioned absolute here */
   .modal-header .cat-pill {
     position: static;
   }
@@ -909,8 +1103,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.3em;
-    font-size: 0.75rem;
-    opacity: 0.45;
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
+    color: var(--text-muted);
   }
 
   .modal-close {
@@ -918,7 +1113,7 @@
     align-items: center;
     justify-content: center;
     background: var(--bg-surface);
-    border: none;
+    border: 1px solid var(--border);
     border-radius: 50%;
     width: 36px;
     height: 36px;
@@ -927,11 +1122,13 @@
     flex-shrink: 0;
     transition:
       background 200ms ease,
-      transform 200ms ease;
+      transform 200ms ease,
+      border-color 200ms ease;
   }
 
   .modal-close:hover {
     background: var(--bg-surface-hover);
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
     transform: rotate(90deg);
   }
 
@@ -959,10 +1156,12 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.4;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    opacity: 0.55;
   }
 
   /* Modal carousel nav */
@@ -1026,43 +1225,49 @@
 
   /* ── Modal body ── */
   .modal-title-block {
-    padding: 1.25rem 1.5rem 0;
+    padding: 1.35rem 1.5rem 0;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
   }
 
   .modal-title {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     font-weight: 900;
     margin: 0;
-    line-height: 1.2;
-    border: none;
+    line-height: 1.15;
     padding: 0;
     text-transform: none;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    display: block;
+  }
+
+  /* Opts out of the global h2 green tick — the accent colour carries it. */
+  .modal-title::before {
+    display: none;
   }
 
   .modal-role {
     display: flex;
     align-items: center;
     gap: 0.4em;
-    font-size: 0.82rem;
-    opacity: 0.55;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
     font-weight: 600;
   }
 
   .modal-desc {
     margin: 0;
-    padding: 0.75rem 1.5rem 0;
-    font-size: 0.92rem;
+    padding: 0.85rem 1.5rem 0;
+    font-size: var(--fs-sm);
     line-height: 1.75;
-    opacity: 0.8;
+    color: var(--text-muted);
   }
 
   .modal-bullets {
     margin: 0;
-    padding: 0.75rem 1.5rem 0;
+    padding: 0.85rem 1.5rem 0;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -1073,15 +1278,16 @@
     display: flex;
     align-items: flex-start;
     gap: 0.55em;
-    font-size: 0.875rem;
+    font-size: var(--fs-sm);
     line-height: 1.7;
-    opacity: 0.8;
+    color: var(--text-muted);
   }
 
   .mbullet {
     flex-shrink: 0;
     margin-top: 0.1em;
     font-size: 0.75em;
+    color: var(--accent);
   }
 
   .modal-actions {
@@ -1089,15 +1295,16 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 0.75rem;
-    padding: 1.25rem 1.5rem 1.5rem;
+    padding: 1.35rem 1.5rem 1.5rem;
   }
 
   .private-notice {
     display: inline-flex;
     align-items: center;
     gap: 0.4em;
-    font-size: 0.8rem;
-    opacity: 0.35;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    opacity: 0.6;
     font-weight: 600;
     font-style: italic;
   }
@@ -1113,7 +1320,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4em;
-    font-size: 0.73rem;
+    font-size: var(--fs-2xs);
     font-weight: 500;
     color: #d97706;
     background: rgba(217, 119, 6, 0.1);

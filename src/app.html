@@ -3,6 +3,33 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			// Runs before first paint. Two jobs, both of which must happen here
+			// rather than in a component to avoid a visible flash.
+			(function () {
+				var d = document.documentElement;
+
+				// 1. Apply the stored theme choice before anything is painted.
+				try {
+					var t = localStorage.getItem('theme');
+					if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t);
+				} catch (e) {
+					/* private mode / blocked storage — fall through to the OS preference */
+				}
+
+				// 2. Arm the reveal system's pre-paint gate. Only with this class
+				//    present does any CSS hide content, so no-JS renders visible.
+				d.classList.add('js-reveal');
+
+				// Failsafe: if the bundle never boots (JS error, blocked asset,
+				// hydration crash) drop the gate so content can never stay hidden.
+				// No cancellation needed — once the runtime adds .reveal-live the
+				// tier-1 selector is already disabled, making this a no-op.
+				setTimeout(function () {
+					d.classList.remove('js-reveal');
+				}, 3000);
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import { reveal } from "$lib/anim/reveal";
 
   const links = [
     {
@@ -31,19 +32,18 @@
 
 <svelte:head>
   <title>Contact — Klenn Jakek Borja</title>
-  <meta name="description" content="Get in touch with Klenn Jakek Borja — open to collaborations and new opportunities." />
 </svelte:head>
 
-<div class="page">
+<div class="page reveal" {@attach reveal()}>
   <div>
     <h1>Contact</h1>
-    <p class="lead" style="margin-top:0.75em;">
+    <p class="lead" style="margin-top:1em;">
       Open to collaborations, new opportunities, or just chatting about tech.
       I try to respond within a day or two.
     </p>
   </div>
 
-  <div class="contact-list stagger" style="margin-top: 2rem;">
+  <div class="contact-list reveal" style="margin-top: 2.25rem;" {@attach reveal({ step: 70 })}>
     {#each links as link}
       <a
         href={link.url}
@@ -68,7 +68,7 @@
 
   <div class="avail-note">
     <span class="avail-dot"></span>
-    Currently at Bronstein, Gewirtz & Grossman, LLC
+    Currently at Bronstein, Gewirtz &amp; Grossman, LLC
   </div>
 
 </div>
@@ -77,22 +77,22 @@
   .contact-list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    max-width: 38rem;
+    gap: 0.85rem;
+    max-width: 40rem;
   }
 
   .contact-card {
     display: flex;
     align-items: center;
-    gap: 1.1rem;
-    padding: 1.1rem 1.25rem;
+    gap: 1.15rem;
+    padding: 1.2rem 1.35rem;
     background: var(--bg-surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     text-decoration: none;
     color: var(--text-main);
-    transition: background 200ms ease, border-color 200ms ease,
-                transform 200ms ease, box-shadow 200ms ease;
+    transition: background 220ms ease, border-color 220ms ease,
+                transform 220ms var(--ease-out), box-shadow 220ms ease;
     position: relative;
     overflow: hidden;
   }
@@ -100,25 +100,28 @@
   .contact-card::before {
     content: '';
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 3px;
     background: var(--c);
-    opacity: 0;
-    transition: opacity 200ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 280ms var(--ease-out);
   }
 
   .contact-card:hover {
     background: var(--bg-surface-hover);
-    border-color: var(--green);
+    border-color: color-mix(in srgb, var(--green) 45%, transparent);
     transform: translateX(6px);
-    box-shadow: 0 6px 20px var(--green-glow);
+    box-shadow: var(--glow-md);
   }
 
-  .contact-card:hover::before { opacity: 1; }
+  .contact-card:hover::before { transform: scaleY(1); }
 
   .contact-icon-wrap {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: var(--radius-sm);
     background: var(--bg-surface-2);
     border: 1px solid var(--border);
@@ -127,42 +130,44 @@
     justify-content: center;
     flex-shrink: 0;
     color: var(--c);
-    transition: background 200ms ease;
+    transition: background 200ms ease, border-color 200ms ease;
   }
 
   .contact-card:hover .contact-icon-wrap {
     background: color-mix(in srgb, var(--c) 15%, var(--bg-surface));
+    border-color: color-mix(in srgb, var(--c) 30%, transparent);
   }
 
   .contact-body { flex: 1; min-width: 0; }
 
   .contact-label {
-    font-size: 0.95rem;
+    font-size: var(--fs-body);
     font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   .contact-hint {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.1em;
+    font-size: var(--fs-2xs);
+    color: var(--green);
+    margin-top: 0.2em;
   }
 
   .contact-desc {
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     color: var(--text-muted);
-    margin-top: 0.3em;
-    line-height: 1.5;
+    margin-top: 0.4em;
+    line-height: 1.55;
   }
 
   :global(.contact-arrow) {
     flex-shrink: 0;
-    opacity: 0.25;
+    opacity: 0.3;
     transition: opacity 200ms ease, transform 200ms ease;
   }
 
   .contact-card:hover :global(.contact-arrow) {
-    opacity: 0.7;
+    opacity: 0.85;
     transform: translate(2px, -2px);
   }
 
@@ -171,14 +176,15 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6em;
-    margin-top: 1.75rem;
-    font-size: 0.82rem;
+    margin-top: 2rem;
+    font-size: var(--fs-xs);
     font-weight: 600;
     color: var(--green);
     background: var(--green-soft);
-    border: 1px solid color-mix(in srgb, var(--green) 25%, transparent);
-    border-radius: 9999em;
-    padding: 0.4em 1em;
+    border: 1px solid color-mix(in srgb, var(--green) 28%, transparent);
+    border-radius: var(--radius-pill);
+    padding: 0.5em 1.1em;
+    box-shadow: inset 0 0 16px color-mix(in srgb, var(--green) 8%, transparent);
   }
 
   .avail-dot {
@@ -193,6 +199,6 @@
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }
-    50%       { opacity: 0.35; }
+    50%      { opacity: 0.35; }
   }
 </style>
